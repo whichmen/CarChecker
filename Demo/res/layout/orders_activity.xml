@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+    
+    <TextView
+        android:id="@+id/custom_activity_username"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+      <Button
+        android:id="@+id/process_buffered_order_btn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="处理待遇处理订单" />
+
+    <Button
+        android:id="@+id/process_current_order_btn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="开始临时检测" />
+
+    
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="已处理订单:"
+        android:textSize="30dp"
+        android:textStyle="bold" />
+
+    <ListView
+        android:id="@+id/processed_order_txt"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+
+</LinearLayout>
