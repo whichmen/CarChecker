@@ -1,12 +1,21 @@
 package com.baidu.push.example;
 
+import java.io.File;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.provider.MediaStore;
+import android.provider.MediaStore.Images.Media;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
@@ -109,7 +118,7 @@ public class CheckItem {
 
     }
 
-    public View createCheckItem(Context activityContext) {
+    public View createCheckItem(final Context activityContext) {
         LayoutInflater layoutInflater = LayoutInflater.from(activityContext);
         View buttonLayout = layoutInflater.inflate(R.layout.checkitem, null);
 
@@ -287,6 +296,67 @@ public class CheckItem {
             btn = (Button) buttonLayout.findViewById(R.id.checkitem_btn);
             if (hasBtn)
                 btn.setVisibility(View.INVISIBLE);
+            else
+                btn.setOnClickListener(new OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        // TODO Auto-generated method stub
+
+                        File path1 = new File("/sdcard/test/111.jpg");
+                        if(!path1.exists()){
+                         path1.mkdirs();
+                        }
+//                        Uri uri = Uri.fromFile(path1);
+//
+////                        private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
+////                        private Uri fileUri;
+//
+////                        <a href="http://home.51cto.com/index.php?s=/space/5017954" target="_blank">@Override</a>
+////                        public void onCreate(Bundle savedInstanceState) {
+////                        &nbsp; &nbsp; super.onCreate(savedInstanceState);
+////                        &nbsp; &nbsp; setContentView(R.layout.main);
+//
+////                        &nbsp; &nbsp; // create Intent to take a picture and return control to the calling application
+////                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//
+//
+////                        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri); // set the image file name
+//
+////                      &nbsp; &nbsp; // start the image capture Intent
+////                        startActivityForResult(intent, 100);
+//
+//
+//
+//                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//                        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+//                        ((Activity)activityContext).startActivityForResult(intent, 1);
+
+//                        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//                        File f = null;
+//
+//                                    try {
+//                                        f = setUpPhotoFile();
+//                                        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
+//                                    } catch (IOException e) {
+//                                        e.printStackTrace();
+//                                        f = null;
+//                                    }
+
+                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+                        ContentValues values = new ContentValues();
+                        values.put(Media.TITLE, "/sdcard/test/111.jpg");
+
+                        Uri photoUri = activityContext.getContentResolver().insert(
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+
+                        ((Activity)activityContext).startActivityForResult(intent, 1);
+
+                    }
+                });
 
         return buttonLayout;
     }

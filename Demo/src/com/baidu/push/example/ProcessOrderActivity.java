@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -297,6 +298,80 @@ public class ProcessOrderActivity extends Activity {
         // mainLayout.addView(ci6.createCheckItem(this));
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.e("", "hello world");
+/*        if (resultCode == Activity.RESULT_OK) {
+
+            String sdStatus = Environment.getExternalStorageState();
+            if (!sdStatus.equals(Environment.MEDIA_MOUNTED)) { // 检测sd是否可用
+                Log.v("TestFile",
+                        "SD card is not avaiable/writeable right now.");
+                return;
+            }
+
+//            Bundle bundle = data.getExtras();
+//            Bitmap bitmap = (Bitmap) bundle.get("data");// 获取相机返回的数据，并转换为Bitmap图片格式
+            FileOutputStream b = null;
+//            File file = new File("/sdcard/myImage/");
+//            file.mkdirs();// 创建文件夹
+            String fileName = "/sdcard/test/111.jpg";
+            File path1 = new File(fileName);
+
+            try {
+                b = new FileOutputStream(fileName);
+
+//                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, b);// 把数据写入文件
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    b.flush();
+                    b.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+//            ((ImageView) findViewById(R.id.imageView)).setImageBitmap(bitmap);// 将图片显示在ImageView里
+            Uri uri = Uri.fromFile(path1);
+            ImageView imageView = new ImageView(this);
+            imageView.setImageURI(uri);
+//            imageView.layout(0, 0, 600, 600);
+
+//            Log.e("", "height = " + bitmap.getHeight() + " width = " + bitmap.getWidth());
+//            imageView.setImageBitmap(bitmap);
+
+            final int wLP = ViewGroup.LayoutParams.WRAP_CONTENT;
+            final int hLP = ViewGroup.LayoutParams.WRAP_CONTENT;
+            PopupWindow pupWin = new PopupWindow(imageView, wLP, hLP, false);
+
+//            pupWin.setAnimationStyle(R.style.ParsePopupAnimation);
+            pupWin.showAtLocation(imageView, Gravity.CENTER, 0, 0);
+            // pupWin.setBackgroundDrawable(new ColorDrawable(-00000));
+            pupWin.setHeight(800);
+            pupWin.setWidth(800);
+*/
+
+//            AlertDialog dialog = new AlertDialog.Builder(this)
+//            .setTitle("请选择是否重新拍照")
+//            .setIcon(android.R.drawable.ic_dialog_info)
+//            .setView(imageView)
+//            .setPositiveButton("确定上传", null)
+//            .setNegativeButton("重拍", null)
+//            .show();
+//
+//            WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
+//             params.width = 1000;
+//             params.height = 2000 ;
+//             dialog.getWindow().setAttributes(params);
+
+//            dialog.getWindow().setLayout(800, 800);
+//        }
+    }
+
 
     @Override
     public void onPause() {
