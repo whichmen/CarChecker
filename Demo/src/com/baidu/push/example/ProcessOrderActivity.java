@@ -24,7 +24,17 @@ public class ProcessOrderActivity extends Activity {
 
     private LinearLayout mainLayout;
 
-    public static final int MAX_ITEMS = 2;
+    public static final int MAX_ITEMS =
+            SourceData_1_ChaYanKeJiaoYiCheLiang.length +
+            SourceData_2_CheShenWaiGuan.length +
+            SourceData_3_FaDongJiCang.length +
+            SourceData_4_GongNengXingLingBuJian.length +
+            SourceData_5_JiaShiCangJianCha.length +
+            SourceData_6_DiPan.length +
+            SourceData_7_PanDingShiGuChe.length +
+            SourceData_8_QiDongJianCha.length +
+            SourceData_9_LuShi.length;
+
     CheckItem[] ci = new CheckItem[MAX_ITEMS];
 
     @Override
@@ -111,17 +121,155 @@ public class ProcessOrderActivity extends Activity {
         // public CheckItem(String title, String[] listName, String[][]
         // itemName,
         // int[][] itemScore, boolean hasEdit, boolean hasBtn) {
-        ci[1] = new CheckItem("车体左右对称性",
-                SourceData.demolistName, SourceData.demoDropDownListName,
-                SourceData.demodropDownListScore, SourceData.hasEdit,
-                SourceData.hasBtn);
-        mainLayout.addView(ci[1].createCheckItem(this));
+//        ci[1] = new CheckItem("车体左右对称性",
+//                SourceData.demolistName, SourceData.demoDropDownListName,
+//                SourceData.demodropDownListScore, SourceData.hasEdit,
+//                SourceData.hasBtn);
+//        mainLayout.addView(ci[1].createCheckItem(this));
+//
+//        ci[0] = new CheckItem("车内是否无泡水痕迹",
+//                SourceData.demolistName, SourceData.demoDropDownListName,
+//                SourceData.demodropDownListScore, SourceData.hasEdit,
+//                SourceData.hasBtn);
+//        mainLayout.addView(ci[0].createCheckItem(this));
 
-        ci[0] = new CheckItem("车内是否无泡水痕迹",
-                SourceData.demolistName, SourceData.demoDropDownListName,
-                SourceData.demodropDownListScore, SourceData.hasEdit,
-                SourceData.hasBtn);
-        mainLayout.addView(ci[0].createCheckItem(this));
+
+
+
+        int index = -1;
+
+        mainLayout.addView(  SourceData_Category.createCheckItemTitle(this, 0) );
+
+//NOTE 8 items
+        for(int i = 0; i< SourceData_1_ChaYanKeJiaoYiCheLiang.length; i++){
+            ci[++index] = new CheckItem(SourceData_1_ChaYanKeJiaoYiCheLiang.demoListTitle[i],
+                    SourceData_1_ChaYanKeJiaoYiCheLiang.demolistName[i],
+                    SourceData_1_ChaYanKeJiaoYiCheLiang.demoDropDownListName[i],
+                    SourceData_1_ChaYanKeJiaoYiCheLiang.demodropDownListScore[i],
+                    SourceData_1_ChaYanKeJiaoYiCheLiang.hasEdit[i],
+                    SourceData_1_ChaYanKeJiaoYiCheLiang.hasBtn[i]
+                    );
+            mainLayout.addView(ci[index].createCheckItem(this));
+
+        }
+
+
+//NOTE 32 items
+        mainLayout.addView(  SourceData_Category.createCheckItemTitle(this, 1) );
+
+        for(int i = 0; i< SourceData_2_CheShenWaiGuan.length; i++){
+            ci[++index] = new CheckItem(SourceData_2_CheShenWaiGuan.demoListTitle[i],
+                    SourceData_2_CheShenWaiGuan.demolistName[i],
+                    SourceData_2_CheShenWaiGuan.demoDropDownListName[i],
+                    SourceData_2_CheShenWaiGuan.demodropDownListScore[i],
+                    SourceData_2_CheShenWaiGuan.hasEdit[i],
+                    SourceData_2_CheShenWaiGuan.hasBtn[i]
+                    );
+            mainLayout.addView(ci[index].createCheckItem(this));
+
+        }
+
+
+        mainLayout.addView(  SourceData_Category.createCheckItemTitle(this, 2) );
+
+        for(int i = 0; i< SourceData_3_FaDongJiCang.length; i++){
+            ci[++index] = new CheckItem(SourceData_3_FaDongJiCang.demoListTitle[i],
+                    SourceData_3_FaDongJiCang.demolistName[i],
+                    SourceData_3_FaDongJiCang.demoDropDownListName[i],
+                    SourceData_3_FaDongJiCang.demodropDownListScore[i],
+                    SourceData_3_FaDongJiCang.hasEdit[i],
+                    SourceData_3_FaDongJiCang.hasBtn[i]
+                    );
+            mainLayout.addView(ci[index].createCheckItem(this));
+
+        }
+
+
+        mainLayout.addView(  SourceData_Category.createCheckItemTitle(this, 3) );
+
+        for(int i = 0; i< SourceData_4_GongNengXingLingBuJian.length; i++){
+            ci[++index] = new CheckItem(SourceData_4_GongNengXingLingBuJian.demoListTitle[i],
+                    SourceData_4_GongNengXingLingBuJian.demolistName[i],
+                    SourceData_4_GongNengXingLingBuJian.demoDropDownListName[i],
+                    SourceData_4_GongNengXingLingBuJian.demodropDownListScore[i],
+                    SourceData_4_GongNengXingLingBuJian.hasEdit[i],
+                    SourceData_4_GongNengXingLingBuJian.hasBtn[i]
+                    );
+            mainLayout.addView(ci[index].createCheckItem(this));
+
+        }
+
+
+        mainLayout.addView(  SourceData_Category.createCheckItemTitle(this, 4) );
+
+        for(int i = 0; i< SourceData_5_JiaShiCangJianCha.length; i++){
+            ci[++index] = new CheckItem(SourceData_5_JiaShiCangJianCha.demoListTitle[i],
+                    SourceData_5_JiaShiCangJianCha.demolistName[i],
+                    SourceData_5_JiaShiCangJianCha.demoDropDownListName[i],
+                    SourceData_5_JiaShiCangJianCha.demodropDownListScore[i],
+                    SourceData_5_JiaShiCangJianCha.hasEdit[i],
+                    SourceData_5_JiaShiCangJianCha.hasBtn[i]
+                    );
+            mainLayout.addView(ci[index].createCheckItem(this));
+
+        }
+
+        mainLayout.addView(  SourceData_Category.createCheckItemTitle(this, 5) );
+
+        for(int i = 0; i< SourceData_6_DiPan.length; i++){
+            ci[++index] = new CheckItem(SourceData_6_DiPan.demoListTitle[i],
+                    SourceData_6_DiPan.demolistName[i],
+                    SourceData_6_DiPan.demoDropDownListName[i],
+                    SourceData_6_DiPan.demodropDownListScore[i],
+                    SourceData_6_DiPan.hasEdit[i],
+                    SourceData_6_DiPan.hasBtn[i]
+                    );
+            mainLayout.addView(ci[index].createCheckItem(this));
+
+        }
+
+        mainLayout.addView(  SourceData_Category.createCheckItemTitle(this, 6) );
+
+        for(int i = 0; i< SourceData_7_PanDingShiGuChe.length; i++){
+            ci[++index] = new CheckItem(SourceData_7_PanDingShiGuChe.demoListTitle[i],
+                    SourceData_7_PanDingShiGuChe.demolistName[i],
+                    SourceData_7_PanDingShiGuChe.demoDropDownListName[i],
+                    SourceData_7_PanDingShiGuChe.demodropDownListScore[i],
+                    SourceData_7_PanDingShiGuChe.hasEdit[i],
+                    SourceData_7_PanDingShiGuChe.hasBtn[i]
+                    );
+            mainLayout.addView(ci[index].createCheckItem(this));
+
+        }
+
+        mainLayout.addView(  SourceData_Category.createCheckItemTitle(this, 7) );
+
+        for(int i = 0; i< SourceData_8_QiDongJianCha.length; i++){
+            ci[++index] = new CheckItem(SourceData_8_QiDongJianCha.demoListTitle[i],
+                    SourceData_8_QiDongJianCha.demolistName[i],
+                    SourceData_8_QiDongJianCha.demoDropDownListName[i],
+                    SourceData_8_QiDongJianCha.demodropDownListScore[i],
+                    SourceData_8_QiDongJianCha.hasEdit[i],
+                    SourceData_8_QiDongJianCha.hasBtn[i]
+                    );
+            mainLayout.addView(ci[index].createCheckItem(this));
+
+        }
+
+        mainLayout.addView(  SourceData_Category.createCheckItemTitle(this, 8) );
+
+        for(int i = 0; i< SourceData_9_LuShi.length; i++){
+            ci[++index] = new CheckItem(SourceData_9_LuShi.demoListTitle[i],
+                    SourceData_9_LuShi.demolistName[i],
+                    SourceData_9_LuShi.demoDropDownListName[i],
+                    SourceData_9_LuShi.demodropDownListScore[i],
+                    SourceData_9_LuShi.hasEdit[i],
+                    SourceData_9_LuShi.hasBtn[i]
+                    );
+            mainLayout.addView(ci[index].createCheckItem(this));
+
+        }
+
 
         // CheckItem ci3 = new CheckItem(SourceData.demoListTitle,
         // SourceData.demolistName, SourceData.demoDropDownListName,

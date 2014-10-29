@@ -21,7 +21,12 @@ public class CheckItem {
 
     public String[] listName = new String[6];
     public String[][] dropDownListName = new String[6][6];
-    public int[][] dropDownListScore = new int[6][6];
+    public double[][] dropDownListScore = new double[6][6];
+
+    public String[] dropDownListName_length3 = new String[3];
+    public String[] dropDownListName_length4 = new String[4];
+    public String[] dropDownListName_length5 = new String[5];
+    public String[] tempDropDownListName = null;
 
     public boolean hasEdit = false;
     public boolean hasBtn = false;
@@ -57,7 +62,7 @@ public class CheckItem {
     // };
 
     public CheckItem(String title, String[] listName, String[][] itemName,
-            int[][] itemScore, boolean hasEdit, boolean hasBtn) {
+            double[][] itemScore, boolean hasEdit, boolean hasBtn) {
 
         // for (int i = 0; i < 6; i++) {
         // for (int j = 0; j < 6; j++) {
@@ -83,12 +88,12 @@ public class CheckItem {
         spinner_name = new TextView[6];
 
         dropDownListName = new String[6][6];
-        dropDownListScore = new int[6][6];
+        dropDownListScore = new double[6][6];
         dropDownListResult = new int[6];
 
         for (int i = 0; i < 6; i++) {
             dropDownListName[i] = new String[6];
-            dropDownListScore[i] = new int[6];
+            dropDownListScore[i] = new double[6];
             for (int j = 0; j < 6; j++) {
                 {
                     dropDownListName[i][j] = "abc";
@@ -133,6 +138,14 @@ public class CheckItem {
 
         for (int i = 0; i < 6; i++) {
 
+//            for(int j=5; j>=0; j--)
+//            {
+//                if(dropDownListName[i][j].equals(""))
+//                    continue;
+//
+//                tempDropDownListName=
+//            }
+
             spinner_name[i].setText(listName[i]);
 
             // 将可选内容与ArrayAdapter连接起来
@@ -148,6 +161,13 @@ public class CheckItem {
 
             // 设置默认值
             spinner[i].setVisibility(View.VISIBLE);
+
+            if(listName[i].equals("")){
+                spinner_name[i].setVisibility(View.INVISIBLE);
+                spinner[i].setVisibility(View.INVISIBLE);
+            }
+
+
 
             // TODO Auto-generated constructor stub
         }
@@ -257,12 +277,16 @@ public class CheckItem {
 
 
 
-        if (hasEdit)
+
             editText = (EditText) buttonLayout
                     .findViewById(R.id.checkitem_edit);
+            if (!hasEdit)
+                editText.setVisibility(View.INVISIBLE);
 
-        if (hasBtn)
+
             btn = (Button) buttonLayout.findViewById(R.id.checkitem_btn);
+            if (hasBtn)
+                btn.setVisibility(View.INVISIBLE);
 
         return buttonLayout;
     }

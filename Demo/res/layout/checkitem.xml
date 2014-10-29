@@ -4,11 +4,14 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
+
+    
     <TextView
         android:id="@+id/checkitem_title"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="检测项目名字" />
+        android:text="检测项目名字"
+        android:textColor="@color/blue" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,7 +27,8 @@
             <TextView
                 android:id="@+id/Spinner_txt1"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:gravity="center" />
 
             <Spinner
                 android:id="@+id/Spinner1"
@@ -42,7 +46,8 @@
             <TextView
                 android:id="@+id/Spinner_txt2"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:gravity="center" >
             </TextView>
 
             <Spinner
@@ -61,7 +66,8 @@
             <TextView
                 android:id="@+id/Spinner_txt3"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:gravity="center" >
             </TextView>
 
             <Spinner
@@ -80,7 +86,8 @@
             <TextView
                 android:id="@+id/Spinner_txt4"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:gravity="center" >
             </TextView>
 
             <Spinner
@@ -99,7 +106,8 @@
             <TextView
                 android:id="@+id/Spinner_txt5"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:gravity="center" >
             </TextView>
 
             <Spinner
@@ -124,7 +132,8 @@
             <Spinner
                 android:id="@+id/Spinner6"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:gravity="center" >
             </Spinner>
         </LinearLayout>
     </LinearLayout>
@@ -139,8 +148,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="4"
-            android:hint="备注"
-            />
+            android:hint="备注" />
 
         <Button
             android:id="@+id/checkitem_btn"
@@ -150,4 +158,10 @@
             android:text="上传照片" />
     </LinearLayout>
 
+        <View  
+   android:layout_width="fill_parent"  
+    android:layout_height="1px" 
+   android:background="@color/darker_blue"  
+/>  
+    
 </LinearLayout>
