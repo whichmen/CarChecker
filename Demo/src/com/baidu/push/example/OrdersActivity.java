@@ -1,5 +1,8 @@
 package com.baidu.push.example;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -96,15 +99,30 @@ public class OrdersActivity extends Activity {
 
         processed_order_contentStrings = new String[Orders.processedOrdersJsonArray
                 .length()];
-        try {
+        JSONObject js = null;
+
+
             // if(!Orders.processedOrderContent.isEmpty())
             int size = Orders.processedOrdersJsonArray.length();
-            for (int i = 0; i < Orders.processedOrdersJsonArray.length(); i++)
-                processed_order_contentStrings[size-i-1] = Orders.processedOrdersJsonArray
-                        .getJSONObject(i).toString();/*FIX ME */
-        } catch (Exception e) {
-            Log.e("ToArray", "1111failure:" + e.getMessage());
-        }
+            for (int i = 0; i < Orders.processedOrdersJsonArray.length(); i++){
+                try {
+                    js = Orders.processedOrdersJsonArray.getJSONObject(i);
+                } catch (JSONException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+                try {
+                processed_order_contentStrings[size-i-1] = "订单号：" + js.getString("订单号：") +
+                                                               ". 客户姓名："+ js.getString("客户姓名：") +
+                                                               ". 时间：" + js.getString("时间：");
+                Log.e("", "ok find 订单号 " + processed_order_contentStrings[size-i-1]);
+
+                } catch (Exception e) {
+                    processed_order_contentStrings[size-i-1] = "此订单无订单信息不全";
+                    Log.e("ToArray", "1111failure:" + e.getMessage());
+                }
+            }
+
 
         processed_order_txt.setAdapter(new ArrayAdapter<String>(this,
                 android.R.layout.simple_expandable_list_item_1,

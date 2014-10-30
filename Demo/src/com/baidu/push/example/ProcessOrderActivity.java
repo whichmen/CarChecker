@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ProcessOrderActivity extends Activity {
 
@@ -38,6 +39,8 @@ public class ProcessOrderActivity extends Activity {
 
     CheckItem[] ci = new CheckItem[MAX_ITEMS];
 
+    BasicInfo basicInfo = null;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +55,12 @@ public class ProcessOrderActivity extends Activity {
 
                     @Override
                     public void onClick(View v) {
+
+                        if(!basicInfo.hasKeyInfo()){
+                            Toast.makeText(ProcessOrderActivity.this.getApplicationContext(), "请补全关键信息：订单号 姓名 时间", Toast.LENGTH_LONG).show();
+                            return;
+                        }
+
                         // TODO Auto-generated method stub
                         needSaveCurrentPage = false;
                         try {
@@ -135,11 +144,14 @@ public class ProcessOrderActivity extends Activity {
 //        mainLayout.addView(ci[0].createCheckItem(this));
 
 
+        mainLayout.addView(  SourceData_Category.createCheckItemTitle(this, 0) );
 
+        basicInfo = new BasicInfo();
+        mainLayout.addView(basicInfo.createBasicInfoItem(this));
 
         int index = -1;
 
-        mainLayout.addView(  SourceData_Category.createCheckItemTitle(this, 0) );
+        mainLayout.addView(  SourceData_Category.createCheckItemTitle(this, 1) );
 
 //NOTE 8 items
         for(int i = 0; i< SourceData_1_ChaYanKeJiaoYiCheLiang.length; i++){
@@ -156,7 +168,7 @@ public class ProcessOrderActivity extends Activity {
 
 
 //NOTE 32 items
-        mainLayout.addView(  SourceData_Category.createCheckItemTitle(this, 1) );
+        mainLayout.addView(  SourceData_Category.createCheckItemTitle(this, 2) );
 
         for(int i = 0; i< SourceData_2_CheShenWaiGuan.length; i++){
             ci[++index] = new CheckItem(SourceData_2_CheShenWaiGuan.demoListTitle[i],
@@ -171,7 +183,7 @@ public class ProcessOrderActivity extends Activity {
         }
 
 
-        mainLayout.addView(  SourceData_Category.createCheckItemTitle(this, 2) );
+        mainLayout.addView(  SourceData_Category.createCheckItemTitle(this, 3) );
 
         for(int i = 0; i< SourceData_3_FaDongJiCang.length; i++){
             ci[++index] = new CheckItem(SourceData_3_FaDongJiCang.demoListTitle[i],
@@ -186,7 +198,7 @@ public class ProcessOrderActivity extends Activity {
         }
 
 
-        mainLayout.addView(  SourceData_Category.createCheckItemTitle(this, 3) );
+        mainLayout.addView(  SourceData_Category.createCheckItemTitle(this, 4) );
 
         for(int i = 0; i< SourceData_4_GongNengXingLingBuJian.length; i++){
             ci[++index] = new CheckItem(SourceData_4_GongNengXingLingBuJian.demoListTitle[i],
@@ -201,7 +213,7 @@ public class ProcessOrderActivity extends Activity {
         }
 
 
-        mainLayout.addView(  SourceData_Category.createCheckItemTitle(this, 4) );
+        mainLayout.addView(  SourceData_Category.createCheckItemTitle(this, 5) );
 
         for(int i = 0; i< SourceData_5_JiaShiCangJianCha.length; i++){
             ci[++index] = new CheckItem(SourceData_5_JiaShiCangJianCha.demoListTitle[i],
@@ -215,7 +227,7 @@ public class ProcessOrderActivity extends Activity {
 
         }
 
-        mainLayout.addView(  SourceData_Category.createCheckItemTitle(this, 5) );
+        mainLayout.addView(  SourceData_Category.createCheckItemTitle(this, 6) );
 
         for(int i = 0; i< SourceData_6_DiPan.length; i++){
             ci[++index] = new CheckItem(SourceData_6_DiPan.demoListTitle[i],
@@ -229,7 +241,7 @@ public class ProcessOrderActivity extends Activity {
 
         }
 
-        mainLayout.addView(  SourceData_Category.createCheckItemTitle(this, 6) );
+        mainLayout.addView(  SourceData_Category.createCheckItemTitle(this, 7) );
 
         for(int i = 0; i< SourceData_7_PanDingShiGuChe.length; i++){
             ci[++index] = new CheckItem(SourceData_7_PanDingShiGuChe.demoListTitle[i],
@@ -243,7 +255,7 @@ public class ProcessOrderActivity extends Activity {
 
         }
 
-        mainLayout.addView(  SourceData_Category.createCheckItemTitle(this, 7) );
+        mainLayout.addView(  SourceData_Category.createCheckItemTitle(this, 8) );
 
         for(int i = 0; i< SourceData_8_QiDongJianCha.length; i++){
             ci[++index] = new CheckItem(SourceData_8_QiDongJianCha.demoListTitle[i],
@@ -257,7 +269,7 @@ public class ProcessOrderActivity extends Activity {
 
         }
 
-        mainLayout.addView(  SourceData_Category.createCheckItemTitle(this, 8) );
+        mainLayout.addView(  SourceData_Category.createCheckItemTitle(this, 9) );
 
         for(int i = 0; i< SourceData_9_LuShi.length; i++){
             ci[++index] = new CheckItem(SourceData_9_LuShi.demoListTitle[i],
@@ -426,12 +438,15 @@ public class ProcessOrderActivity extends Activity {
     }
 
     private void saveData(JSONObject js) {
+        basicInfo.getUserInput(js);
         for(int i=0; i<MAX_ITEMS; i++ ){
             ci[i].getUserInput(js);
         }
+
     }
 
     private void resumeData(JSONObject js) {
+        basicInfo.setUserInput(js);
         for(int i=0; i<MAX_ITEMS; i++){
             ci[i].setUserInput(js);
         }

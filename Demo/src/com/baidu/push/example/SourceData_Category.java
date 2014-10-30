@@ -7,9 +7,10 @@ import android.widget.TextView;
 
 public class SourceData_Category {
 
-    public static int length = 8;
+    public static int length = 10;
 
     public static String[] titleStrings = new String[]{
+        "用户订单以及车辆基本信息",
         "1:查验可交易车辆",
         "2:车身外观",
         "3:发动机仓",
