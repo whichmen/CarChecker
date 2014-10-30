@@ -51,15 +51,15 @@ public class CheckItem {
     private int[] dropDownListResult = new int[6];
 
     // public static String[][] demoDropDownListName = new String[][] {
-    // { "无", "轻微", "严重", "很严重", "太严重", "" },
-    // { "无", "轻微", "严重", "很严重", "太严重", "" },
-    // { "无", "轻微", "严重", "很严重", "太严重", "" },
-    // { "无", "轻微", "严重", "很严重", "太严重", "" },
-    // { "无", "轻微", "严重", "很严重", "太严重", "" },
-    // { "无", "轻微", "严重", "很严重", "太严重", "" }, };
+    // { "鏃�", "杞诲井", "涓ラ噸", "寰堜弗閲�", "澶弗閲�", "" },
+    // { "鏃�", "杞诲井", "涓ラ噸", "寰堜弗閲�", "澶弗閲�", "" },
+    // { "鏃�", "杞诲井", "涓ラ噸", "寰堜弗閲�", "澶弗閲�", "" },
+    // { "鏃�", "杞诲井", "涓ラ噸", "寰堜弗閲�", "澶弗閲�", "" },
+    // { "鏃�", "杞诲井", "涓ラ噸", "寰堜弗閲�", "澶弗閲�", "" },
+    // { "鏃�", "杞诲井", "涓ラ噸", "寰堜弗閲�", "澶弗閲�", "" }, };
     //
-    // public static String[] demolistName = new String[] { "BX变形", "NQ扭曲",
-    // "GH更换", "SH烧焊", "ZZ褶皱" };
+    // public static String[] demolistName = new String[] { "BX鍙樺舰", "NQ鎵洸",
+    // "GH鏇存崲", "SH鐑х剨", "ZZ瑜剁毐" };
     //
     // public static int[][] demodropDownListScore = new int[][] {
     // {0, -1, -2, -3, -4, 0},
@@ -115,8 +115,8 @@ public class CheckItem {
             }
         }
 
-        title = "检测项目";
-        this.listName = new String[] { "前面", "后面", "左面", "右面", "上面", "下面" };
+        title = "妫�娴嬮」鐩�";
+        this.listName = new String[] { "鍓嶉潰", "鍚庨潰", "宸﹂潰", "鍙抽潰", "涓婇潰", "涓嬮潰" };
         this.hasEdit = true;
         this.hasBtn = true;
 
@@ -161,18 +161,18 @@ public class CheckItem {
 
             spinner_name[i].setText(listName[i]);
 
-            // 将可选内容与ArrayAdapter连接起来
+            // 灏嗗彲閫夊唴瀹逛笌ArrayAdapter杩炴帴璧锋潵
             adapter = new ArrayAdapter<String>(activityContext,
                     android.R.layout.simple_spinner_item, dropDownListName[i]);
 
-            // 设置下拉列表的风格
+            // 璁剧疆涓嬫媺鍒楄〃鐨勯鏍�
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-            // 将adapter 添加到spinner中
+            // 灏哸dapter 娣诲姞鍒皊pinner涓�
             spinner[i].setAdapter(adapter);
 
 
-            // 设置默认值
+            // 璁剧疆榛樿鍊�
             spinner[i].setVisibility(View.VISIBLE);
 
             if(listName[i].equals("")){
@@ -298,7 +298,7 @@ public class CheckItem {
 
 
             btn = (Button) buttonLayout.findViewById(R.id.checkitem_btn);
-            if (hasBtn)
+            if (!hasBtn)
                 btn.setVisibility(View.INVISIBLE);
             else {
                 btn.setOnClickListener(new OnClickListener() {
@@ -307,7 +307,7 @@ public class CheckItem {
                     public void onClick(View v) {
 
                         if(!basicInfo.hasKeyInfo()){
-                            Toast.makeText(activityContext, "请先输入订单号，否则照片无法根据订单号命名", Toast.LENGTH_LONG).show();
+                            Toast.makeText(activityContext, "璇峰厛杈撳叆璁㈠崟鍙凤紝鍚﹀垯鐓х墖鏃犳硶鏍规嵁璁㈠崟鍙峰懡鍚�", Toast.LENGTH_LONG).show();
                             return;
                         }
                         // TODO Auto-generated method stub
