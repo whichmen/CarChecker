@@ -8,6 +8,8 @@
         android:id="@+id/custom_activity_username"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/blue"
         android:textSize="20dp"
         android:textStyle="bold" />
 
@@ -29,6 +31,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="已处理订单:"
+        android:gravity="center"
         android:textSize="30dp"
         android:textStyle="bold" />
 

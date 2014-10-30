@@ -40,7 +40,7 @@ public class LoginActivity extends Activity {
 
         loginBtn = (Button) findViewById(R.id.login_activity_btn_login);
         usernameTxtTextView = (TextView) findViewById(R.id.login_activity_text_username);
-        usernameTxtTextView.setText("用户名：" + Users.userNameString);
+        usernameTxtTextView.setText( Users.userNameString);
 
         passwordEditText = (EditText)findViewById(R.id.login_activity_text_password);
 

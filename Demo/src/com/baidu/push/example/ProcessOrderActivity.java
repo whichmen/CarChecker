@@ -4,6 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -91,58 +92,8 @@ public class ProcessOrderActivity extends Activity {
                     }
                 });
 
-        // process_order_activity_save = (Button)
-        // findViewById(R.id.process_order_activity_save);
-        // process_order_activity_save
-        // .setOnClickListener(new View.OnClickListener() {
-        //
-        // @Override
-        // public void onClick(View v) {
-        // // TODO Auto-generated method stub
-        // // Orders.showAll();
-        //
-        // try {
-        //
-        // Orders.currentOrderJsonObject.put("CarName",
-        // "current 皇马");
-        //
-        // JSONObject jsonObject1 = new JSONObject();
-        // jsonObject1.put("CarName", "array 自行车1");
-        // JSONObject jsonObject2 = new JSONObject();
-        // jsonObject2.put("CarName", "array 自行车2");
-        //
-        // Orders.processedOrdersJsonArray.put(0, jsonObject1);
-        // Orders.processedOrdersJsonArray.put(1, jsonObject2);
-        // } catch (JSONException e) {
-        // // TODO Auto-generated catch block
-        // e.printStackTrace();
-        // }
-        //
-        // Orders.update();
-        //
-        // // Orders.insert();
-        // // Orders.findData();
-        //
-        // }
-        // });
 
         mainLayout = (LinearLayout) findViewById(R.id.process_order_activity);
-
-        // public CheckItem(String title, String[] listName, String[][]
-        // itemName,
-        // int[][] itemScore, boolean hasEdit, boolean hasBtn) {
-//        ci[1] = new CheckItem("车体左右对称性",
-//                SourceData.demolistName, SourceData.demoDropDownListName,
-//                SourceData.demodropDownListScore, SourceData.hasEdit,
-//                SourceData.hasBtn);
-//        mainLayout.addView(ci[1].createCheckItem(this));
-//
-//        ci[0] = new CheckItem("车内是否无泡水痕迹",
-//                SourceData.demolistName, SourceData.demoDropDownListName,
-//                SourceData.demodropDownListScore, SourceData.hasEdit,
-//                SourceData.hasBtn);
-//        mainLayout.addView(ci[0].createCheckItem(this));
-
 
         mainLayout.addView(  SourceData_Category.createCheckItemTitle(this, 0) );
 
@@ -153,7 +104,7 @@ public class ProcessOrderActivity extends Activity {
 
         mainLayout.addView(  SourceData_Category.createCheckItemTitle(this, 1) );
 
-//NOTE 8 items
+
         for(int i = 0; i< SourceData_1_ChaYanKeJiaoYiCheLiang.length; i++){
             ci[++index] = new CheckItem(SourceData_1_ChaYanKeJiaoYiCheLiang.demoListTitle[i],
                     SourceData_1_ChaYanKeJiaoYiCheLiang.demolistName[i],
@@ -162,12 +113,11 @@ public class ProcessOrderActivity extends Activity {
                     SourceData_1_ChaYanKeJiaoYiCheLiang.hasEdit[i],
                     SourceData_1_ChaYanKeJiaoYiCheLiang.hasBtn[i]
                     );
+            ci[index].setBasicInfoPtr(basicInfo);
             mainLayout.addView(ci[index].createCheckItem(this));
-
         }
 
 
-//NOTE 32 items
         mainLayout.addView(  SourceData_Category.createCheckItemTitle(this, 2) );
 
         for(int i = 0; i< SourceData_2_CheShenWaiGuan.length; i++){
@@ -178,8 +128,8 @@ public class ProcessOrderActivity extends Activity {
                     SourceData_2_CheShenWaiGuan.hasEdit[i],
                     SourceData_2_CheShenWaiGuan.hasBtn[i]
                     );
+            ci[index].setBasicInfoPtr(basicInfo);
             mainLayout.addView(ci[index].createCheckItem(this));
-
         }
 
 
@@ -193,8 +143,8 @@ public class ProcessOrderActivity extends Activity {
                     SourceData_3_FaDongJiCang.hasEdit[i],
                     SourceData_3_FaDongJiCang.hasBtn[i]
                     );
+            ci[index].setBasicInfoPtr(basicInfo);
             mainLayout.addView(ci[index].createCheckItem(this));
-
         }
 
 
@@ -208,8 +158,8 @@ public class ProcessOrderActivity extends Activity {
                     SourceData_4_GongNengXingLingBuJian.hasEdit[i],
                     SourceData_4_GongNengXingLingBuJian.hasBtn[i]
                     );
+            ci[index].setBasicInfoPtr(basicInfo);
             mainLayout.addView(ci[index].createCheckItem(this));
-
         }
 
 
@@ -223,8 +173,8 @@ public class ProcessOrderActivity extends Activity {
                     SourceData_5_JiaShiCangJianCha.hasEdit[i],
                     SourceData_5_JiaShiCangJianCha.hasBtn[i]
                     );
+            ci[index].setBasicInfoPtr(basicInfo);
             mainLayout.addView(ci[index].createCheckItem(this));
-
         }
 
         mainLayout.addView(  SourceData_Category.createCheckItemTitle(this, 6) );
@@ -237,8 +187,8 @@ public class ProcessOrderActivity extends Activity {
                     SourceData_6_DiPan.hasEdit[i],
                     SourceData_6_DiPan.hasBtn[i]
                     );
+            ci[index].setBasicInfoPtr(basicInfo);
             mainLayout.addView(ci[index].createCheckItem(this));
-
         }
 
         mainLayout.addView(  SourceData_Category.createCheckItemTitle(this, 7) );
@@ -251,8 +201,8 @@ public class ProcessOrderActivity extends Activity {
                     SourceData_7_PanDingShiGuChe.hasEdit[i],
                     SourceData_7_PanDingShiGuChe.hasBtn[i]
                     );
+            ci[index].setBasicInfoPtr(basicInfo);
             mainLayout.addView(ci[index].createCheckItem(this));
-
         }
 
         mainLayout.addView(  SourceData_Category.createCheckItemTitle(this, 8) );
@@ -265,8 +215,8 @@ public class ProcessOrderActivity extends Activity {
                     SourceData_8_QiDongJianCha.hasEdit[i],
                     SourceData_8_QiDongJianCha.hasBtn[i]
                     );
+            ci[index].setBasicInfoPtr(basicInfo);
             mainLayout.addView(ci[index].createCheckItem(this));
-
         }
 
         mainLayout.addView(  SourceData_Category.createCheckItemTitle(this, 9) );
@@ -279,35 +229,15 @@ public class ProcessOrderActivity extends Activity {
                     SourceData_9_LuShi.hasEdit[i],
                     SourceData_9_LuShi.hasBtn[i]
                     );
+            ci[index].setBasicInfoPtr(basicInfo);
             mainLayout.addView(ci[index].createCheckItem(this));
-
         }
 
+    }
 
-        // CheckItem ci3 = new CheckItem(SourceData.demoListTitle,
-        // SourceData.demolistName, SourceData.demoDropDownListName,
-        // SourceData.demodropDownListScore, SourceData.hasEdit,
-        // SourceData.hasBtn);
-        // mainLayout.addView(ci3.createCheckItem(this));
-        //
-        // CheckItem ci4 = new CheckItem(SourceData.demoListTitle,
-        // SourceData.demolistName, SourceData.demoDropDownListName,
-        // SourceData.demodropDownListScore, SourceData.hasEdit,
-        // SourceData.hasBtn);
-        // mainLayout.addView(ci4.createCheckItem(this));
-        //
-        //
-        // CheckItem ci5 = new CheckItem(SourceData.demoListTitle,
-        // SourceData.demolistName, SourceData.demoDropDownListName,
-        // SourceData.demodropDownListScore, SourceData.hasEdit,
-        // SourceData.hasBtn);
-        // mainLayout.addView(ci5.createCheckItem(this));
-        //
-        // CheckItem ci6 = new CheckItem(SourceData.demoListTitle,
-        // SourceData.demolistName, SourceData.demoDropDownListName,
-        // SourceData.demodropDownListScore, SourceData.hasEdit,
-        // SourceData.hasBtn);
-        // mainLayout.addView(ci6.createCheckItem(this));
+    public void setPhotoOnClickListener(final CheckItem item, final Context activityContext){
+
+
 
     }
 

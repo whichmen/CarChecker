@@ -9,15 +9,14 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="用户登陆" />
 
         <TextView
             android:id="@+id/login_activity_text_username"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/blue"
+            android:textSize="30dp"
             android:hint="请输入用户名..." />
 
         <EditText

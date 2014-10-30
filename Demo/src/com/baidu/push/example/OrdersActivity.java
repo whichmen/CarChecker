@@ -113,8 +113,8 @@ public class OrdersActivity extends Activity {
                 }
                 try {
                 processed_order_contentStrings[size-i-1] = "订单号：" + js.getString("订单号：") +
-                                                               ". 客户姓名："+ js.getString("客户姓名：") +
-                                                               ". 时间：" + js.getString("时间：");
+                                                               "\n客户姓名："+ js.getString("客户姓名：") +
+                                                               " 时间：" + js.getString("时间：");
                 Log.e("", "ok find 订单号 " + processed_order_contentStrings[size-i-1]);
 
                 } catch (Exception e) {
