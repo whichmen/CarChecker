@@ -298,7 +298,7 @@ public class CheckItem {
 
 
             btn = (Button) buttonLayout.findViewById(R.id.checkitem_btn);
-            if (hasBtn)
+            if (!hasBtn)
                 btn.setVisibility(View.INVISIBLE);
             else {
                 btn.setOnClickListener(new OnClickListener() {
