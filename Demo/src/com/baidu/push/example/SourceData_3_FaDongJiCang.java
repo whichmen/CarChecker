@@ -251,6 +251,6 @@ public class SourceData_3_FaDongJiCang {
     public static boolean hasEdit[] = {true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false};
 
     //此处表示是否需要传图片
-    public static boolean hasBtn[] = {true,false, false, false, false, false, false, false, false, false, false, false, false, false, false, false};
+    public static boolean hasBtn[] = {false,false, false, false, false, false, false, false, false, false, false, false, false, false, false, false};
 
 }
