@@ -248,7 +248,7 @@ public class SourceData_3_FaDongJiCang {
     //此处表示整备复选框
     public static boolean hasSpinner[] = {true, };
     //此处表示是否需要备注框
-    public static boolean hasEdit[] = {true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false};
+    public static boolean hasEdit[] = {true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true};
 
     //此处表示是否需要传图片
     public static boolean hasBtn[] = {false,false, false, false, false, false, false, false, false, false, false, false, false, false, false, false};
