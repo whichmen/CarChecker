@@ -97,6 +97,10 @@ public class OrdersActivity extends Activity {
     public void updateView(){
         custom_activity_username_txtTextView.setText(Users.userNameString);
 
+        if(Orders.processedOrdersJsonArray == null || Orders.processedOrdersJsonArray
+                .length() == 0 )
+            return;
+
         processed_order_contentStrings = new String[Orders.processedOrdersJsonArray
                 .length()];
         JSONObject js = null;

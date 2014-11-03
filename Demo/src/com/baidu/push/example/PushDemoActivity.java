@@ -119,12 +119,15 @@ public class PushDemoActivity extends Activity implements View.OnClickListener {
     }
 
     public void login() {
+//        Intent intent = new Intent(PushDemoActivity.this, AppFileActivity.class);
         Intent intent = new Intent(PushDemoActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();
     }
 
     public void register(){
+
+
         Intent intent = new Intent(PushDemoActivity.this, RegisiterActivity.class);
         startActivity(intent);
         finish();

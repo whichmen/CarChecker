@@ -92,4 +92,17 @@ public class BasicInfo {
     public String getKeyInfo(){
         return (content[0].getText().toString() + "_" + content[1].getText().toString() + "_" + content[2].getText().toString());
     }
+
+    public String getOrderID(){
+        return (content[0].getText().toString());
+    }
+
+    public String getCustomerName(){
+        return (content[1].getText().toString());
+    }
+
+    public String getCheckTime(){
+        return (content[2].getText().toString());
+    }
+
 }

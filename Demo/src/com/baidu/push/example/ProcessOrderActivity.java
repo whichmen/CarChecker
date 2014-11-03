@@ -1,15 +1,25 @@
 package com.baidu.push.example;
 
+import java.io.File;
+import java.io.IOException;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -245,9 +255,59 @@ public class ProcessOrderActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Log.e("", "hello world");
-/*        if (resultCode == Activity.RESULT_OK) {
 
-            String sdStatus = Environment.getExternalStorageState();
+//        pictureName
+
+        if(requestCode == 1)
+        {
+          Intent intent = new Intent();
+          /* 开启Pictures画面Type设定为image */
+          intent.setType("image/*");
+          /* 使用Intent.ACTION_GET_CONTENT这个Action */
+          intent.setAction(Intent.ACTION_GET_CONTENT);
+          /* 取得相片后返回本画面 */
+          startActivityForResult(intent, 2);
+        }else
+        if (resultCode == Activity.RESULT_OK) {
+
+            String path = null;
+
+            try {
+
+                Uri originalUri = data.getData();        //获得图片的uri
+                ContentResolver resolver = getContentResolver();
+               Bitmap bm = MediaStore.Images.Media.getBitmap(resolver, originalUri);        //显得到bitmap图片
+
+
+
+                String[] proj = {MediaStore.Images.Media.DATA};
+
+                //好像是android多媒体数据库的封装接口，具体的看Android文档
+
+                Cursor cursor = managedQuery(originalUri, proj, null, null, null);
+
+                //按我个人理解 这个是获得用户选择的图片的索引值
+
+                int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+
+                //将光标移至开头 ，这个很重要，不小心很容易引起越界
+
+                cursor.moveToFirst();
+
+                //最后根据索引值获取图片路径
+
+                path = cursor.getString(column_index);
+
+            }catch (IOException e) {
+
+                Log.e("",e.toString());
+
+            }
+
+
+
+
+       /*     String sdStatus = Environment.getExternalStorageState();
             if (!sdStatus.equals(Environment.MEDIA_MOUNTED)) { // 检测sd是否可用
                 Log.v("TestFile",
                         "SD card is not avaiable/writeable right now.");
@@ -260,22 +320,25 @@ public class ProcessOrderActivity extends Activity {
 //            File file = new File("/sdcard/myImage/");
 //            file.mkdirs();// 创建文件夹
             String fileName = "/sdcard/test/111.jpg";
-            File path1 = new File(fileName);
+            Bundle bundle = data.getExtras();
+            String string = bundle.getString("pictureName");*/
 
-            try {
-                b = new FileOutputStream(fileName);
+            File path1 = new File(path);
 
-//                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, b);// 把数据写入文件
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } finally {
-                try {
-                    b.flush();
-                    b.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+//            try {
+//                b = new FileOutputStream(fileName);
+//
+////                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, b);// 把数据写入文件
+//            } catch (FileNotFoundException e) {
+//                e.printStackTrace();
+//            } finally {
+//                try {
+//                    b.flush();
+//                    b.close();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
 
 //            ((ImageView) findViewById(R.id.imageView)).setImageBitmap(bitmap);// 将图片显示在ImageView里
             Uri uri = Uri.fromFile(path1);
@@ -286,32 +349,32 @@ public class ProcessOrderActivity extends Activity {
 //            Log.e("", "height = " + bitmap.getHeight() + " width = " + bitmap.getWidth());
 //            imageView.setImageBitmap(bitmap);
 
-            final int wLP = ViewGroup.LayoutParams.WRAP_CONTENT;
-            final int hLP = ViewGroup.LayoutParams.WRAP_CONTENT;
-            PopupWindow pupWin = new PopupWindow(imageView, wLP, hLP, false);
-
-//            pupWin.setAnimationStyle(R.style.ParsePopupAnimation);
-            pupWin.showAtLocation(imageView, Gravity.CENTER, 0, 0);
-            // pupWin.setBackgroundDrawable(new ColorDrawable(-00000));
-            pupWin.setHeight(800);
-            pupWin.setWidth(800);
-*/
-
-//            AlertDialog dialog = new AlertDialog.Builder(this)
-//            .setTitle("请选择是否重新拍照")
-//            .setIcon(android.R.drawable.ic_dialog_info)
-//            .setView(imageView)
-//            .setPositiveButton("确定上传", null)
-//            .setNegativeButton("重拍", null)
-//            .show();
+//            final int wLP = ViewGroup.LayoutParams.WRAP_CONTENT;
+//            final int hLP = ViewGroup.LayoutParams.WRAP_CONTENT;
+//            PopupWindow pupWin = new PopupWindow(imageView, wLP, hLP, false);
 //
+////            pupWin.setAnimationStyle(R.style.ParsePopupAnimation);
+//            pupWin.showAtLocation(imageView, Gravity.CENTER, 0, 0);
+//            // pupWin.setBackgroundDrawable(new ColorDrawable(-00000));
+//            pupWin.setHeight(800);
+//            pupWin.setWidth(800);
+
+
+            AlertDialog dialog = new AlertDialog.Builder(this)
+            .setTitle("请选择是否重新拍照")
+            .setIcon(android.R.drawable.ic_dialog_info)
+            .setView(imageView)
+            .setPositiveButton("确定上传", null)
+            .setNegativeButton("重拍", null)
+            .show();
+
 //            WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
 //             params.width = 1000;
 //             params.height = 2000 ;
 //             dialog.getWindow().setAttributes(params);
 
 //            dialog.getWindow().setLayout(800, 800);
-//        }
+        }
     }
 
 
