@@ -1,14 +1,5 @@
 package com.baidu.push.example;
 
-import java.util.List;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.content.Context;
-import android.util.Log;
-
 import com.baidu.frontia.Frontia;
 import com.baidu.frontia.FrontiaData;
 import com.baidu.frontia.FrontiaQuery;
@@ -47,11 +38,13 @@ public class Orders {
         FrontiaData newData = new FrontiaData(js);
         mCloudStorage.insertData(newData, new DataInsertListener() {
             @Override
+			@Override
             public void onSuccess() {
                 Log.e("log", "insert js = " + js.toString());
             }
 
             @Override
+			@Override
             public void onFailure(int errCode, String errMsg) {
                 // TODO Auto-generated method stub
                 Log.e("log", "inset 错误为" + errCode + errMsg);
@@ -75,12 +68,14 @@ public class Orders {
         mCloudStorage.updateData(query, newData, new DataOperationListener() {
 
             @Override
+			@Override
             public void onSuccess(long arg0) {
                 // TODO Auto-generated method stub
                 Log.e("", "update success");
             }
 
             @Override
+			@Override
             public void onFailure(int arg0, String arg1) {
                 // TODO Auto-generated method stub
                 Log.e("", "update faile");
@@ -180,6 +175,7 @@ public class Orders {
             }
 
             @Override
+			@Override
             public void onFailure(int errCode, String errMsg) {
                 callback.onFail();
 
@@ -206,6 +202,7 @@ public class Orders {
             FrontiaData newData = new FrontiaData(data);
             mCloudStorage.insertData(newData, new DataInsertListener() {
                 @Override
+				@Override
                 public void onSuccess() {
 //                    Orders.alreadyGetOrderInfo = true;
                     Log.e("log", "创建用户成功 js = " + data.toString());
@@ -215,6 +212,7 @@ public class Orders {
                 }
 
                 @Override
+				@Override
                 public void onFailure(int errCode, String errMsg) {
                     callback.onFail();
 
@@ -237,6 +235,7 @@ public class Orders {
         mCloudStorage.findData(query, new DataInfoListener() {
 
             @Override
+			@Override
             public void onFailure(int arg0, String arg1) {
                 // TODO Auto-generated method stub
 

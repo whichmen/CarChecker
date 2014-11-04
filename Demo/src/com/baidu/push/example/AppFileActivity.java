@@ -1,13 +1,5 @@
 package com.baidu.push.example;
 
-import java.util.List;
-
-import android.app.Activity;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-
 import com.baidu.frontia.Frontia;
 import com.baidu.frontia.FrontiaFile;
 import com.baidu.frontia.api.FrontiaStorage;
@@ -100,6 +92,7 @@ public class AppFileActivity extends Activity {
     	mCloudStorage.uploadFile(mFile,
                 new FileProgressListener() {
                     @Override
+					@Override
                     public void onProgress(String source, long bytes, long total) {
                     	mInfoView.setText(source + " upload......:"
                                 + bytes * 100 / total + "%");
@@ -107,6 +100,7 @@ public class AppFileActivity extends Activity {
                 },
                 new FileTransferListener() {
                     @Override
+					@Override
                     public void onSuccess(String source, String newTargetName) {
                     	mFile.setRemotePath(newTargetName);
                         mInfoView.setText(source + " uploaded as "
@@ -114,6 +108,7 @@ public class AppFileActivity extends Activity {
                     }
 
                     @Override
+					@Override
                     public void onFailure(String source, int errCode, String errMsg) {
                     	mInfoView.setText(source + " errCode:"
                                 + errCode + ", errMsg:" + errMsg);
@@ -127,6 +122,7 @@ public class AppFileActivity extends Activity {
 		mCloudStorage.downloadFile(mFile, new FileProgressListener() {
 
             @Override
+			@Override
             public void onProgress(String source, long bytes, long total) {
                 mInfoView.setText(source + " download......:"
                             + bytes * 100 / total + "%");
@@ -136,6 +132,7 @@ public class AppFileActivity extends Activity {
         }, new FileTransferListener() {
 
             @Override
+			@Override
             public void onSuccess(String source, String newTargetName) {
 
             	mInfoView.setText(source + " downloaded as "
@@ -144,6 +141,7 @@ public class AppFileActivity extends Activity {
             }
 
             @Override
+			@Override
             public void onFailure(String source, int errCode,
                                   String errMsg) {
             	mInfoView.setText(source + " errCode:"
@@ -176,6 +174,7 @@ public class AppFileActivity extends Activity {
 			}
 
 			@Override
+			@Override
 			public void onFailure(int errCode, String errMsg) {
 				if (null != mResultTextView) {
 					mResultTextView.setText("errCode:" + errCode + ", errMsg:"
@@ -193,11 +192,13 @@ public class AppFileActivity extends Activity {
                 new FileOperationListener() {
 
                     @Override
+					@Override
                     public void onSuccess(String source) {
                        mInfoView.setText(source + " is deleted");
                     }
 
                     @Override
+					@Override
                     public void onFailure(String source, int errCode,
                                           String errMsg) {
                     	mInfoView.setText(source + " errCode:"

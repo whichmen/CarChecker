@@ -1,15 +1,5 @@
 package com.baidu.push.example;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.TextView;
-
 public class BasicInfo {
 
     private String basicInfo[] = new String[]{

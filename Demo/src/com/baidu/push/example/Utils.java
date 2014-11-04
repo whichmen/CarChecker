@@ -1,23 +1,5 @@
 package com.baidu.push.example;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
-import android.media.ExifInterface;
-import android.os.Bundle;
-import android.preference.PreferenceManager;
-
 public class Utils {
     public static final String TAG = "PushDemoActivity";
     public static final String RESPONSE_METHOD = "method";

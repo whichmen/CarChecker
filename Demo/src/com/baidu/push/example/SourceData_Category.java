@@ -1,10 +1,5 @@
 package com.baidu.push.example;
 
-import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.TextView;
-
 public class SourceData_Category {
 
     public static int length = 10;
