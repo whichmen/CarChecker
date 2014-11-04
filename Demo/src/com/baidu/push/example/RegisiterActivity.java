@@ -1,5 +1,21 @@
 package com.baidu.push.example;
 
+import java.util.LinkedList;
+import java.util.List;
+
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
 import com.baidu.android.pushservice.PushManager;
 
 public class RegisiterActivity extends Activity {
@@ -44,14 +60,12 @@ public class RegisiterActivity extends Activity {
                     Orders.createUser(new Callback() {
 
                         @Override
-						@Override
                         public void onSuccess() {
                             // TODO Auto-generated method stub
                             handler.sendEmptyMessage(0);
                         }
 
                         @Override
-						@Override
                         public void onFail() {
                             // TODO Auto-generated method stub
 
