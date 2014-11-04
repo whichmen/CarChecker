@@ -95,7 +95,7 @@ public class CheckItem {
         dropDownListResult = new int[6];
     }
 
-    public void setBasicInfoPtr(BasicInfo basicInfo){
+    public void setBasicInfoPtr(BasicInfo basicInfo) {
         this.basicInfo = basicInfo;
     }
 
@@ -153,13 +153,13 @@ public class CheckItem {
 
         for (int i = 0; i < 6; i++) {
 
-//            for(int j=5; j>=0; j--)
-//            {
-//                if(dropDownListName[i][j].equals(""))
-//                    continue;
-//
-//                tempDropDownListName=
-//            }
+            // for(int j=5; j>=0; j--)
+            // {
+            // if(dropDownListName[i][j].equals(""))
+            // continue;
+            //
+            // tempDropDownListName=
+            // }
 
             spinner_name[i].setText(listName[i]);
 
@@ -173,16 +173,13 @@ public class CheckItem {
             // 灏哸dapter 娣诲姞鍒皊pinner涓�
             spinner[i].setAdapter(adapter);
 
-
             // 璁剧疆榛樿鍊�
             spinner[i].setVisibility(View.VISIBLE);
 
-            if(listName[i].equals("")){
+            if (listName[i].equals("")) {
                 spinner_name[i].setVisibility(View.INVISIBLE);
                 spinner[i].setVisibility(View.INVISIBLE);
             }
-
-
 
             // TODO Auto-generated constructor stub
         }
@@ -289,68 +286,59 @@ public class CheckItem {
 
         });
 
+        editText = (EditText) buttonLayout.findViewById(R.id.checkitem_edit);
+        if (!hasEdit)
+            editText.setVisibility(View.INVISIBLE);
 
+        btn = (Button) buttonLayout.findViewById(R.id.checkitem_btn);
+        if (!hasBtn)
+            btn.setVisibility(View.INVISIBLE);
+        else {
+            btn.setOnClickListener(new OnClickListener() {
 
+                @Override
+                public void onClick(View v) {
 
-
-            editText = (EditText) buttonLayout
-                    .findViewById(R.id.checkitem_edit);
-            if (!hasEdit)
-                editText.setVisibility(View.INVISIBLE);
-
-
-            btn = (Button) buttonLayout.findViewById(R.id.checkitem_btn);
-            if (!hasBtn)
-                btn.setVisibility(View.INVISIBLE);
-            else {
-                btn.setOnClickListener(new OnClickListener() {
-
-                    @Override
-                    public void onClick(View v) {
-
-
-
-
-                        if(!basicInfo.hasKeyInfo()){
-                            Toast.makeText(activityContext, "璇峰厛杈撳叆璁㈠崟鍙凤紝鍚﹀垯鐓х墖鏃犳硶鏍规嵁璁㈠崟鍙峰懡鍚�", Toast.LENGTH_LONG).show();
-                            return;
-                        }
-                        // TODO Auto-generated method stub
-
-                        File path1 = new File(Config.LOCAL_FILE_PATH + basicInfo.getOrderID() + "/");
-                        if(!path1.exists()){
-                         path1.mkdirs();
-                        }
-
-                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-                        File path2 = new File(Config.LOCAL_FILE_PATH + basicInfo.getOrderID() + "/" + basicInfo.getKeyInfo() + "_" + title + ".jpg");
-
-                        Uri uri = Uri.fromFile(path2);
-
-                        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-                        intent.putExtra("pictureName", path2);
-                        ((Activity)activityContext).startActivityForResult(intent, 1);
-
-
-
-
-
+                    if (!basicInfo.hasKeyInfo()) {
+                        Toast.makeText(activityContext,
+                                "璇峰厛杈撳叆璁㈠崟鍙凤紝鍚﹀垯鐓х墖鏃犳硶鏍规嵁璁㈠崟鍙峰懡鍚�",
+                                Toast.LENGTH_LONG).show();
+                        return;
                     }
-                });
-            }
+                    // TODO Auto-generated method stub
 
+                    File path1 = new File(Config.LOCAL_FILE_PATH
+                            + basicInfo.getOrderID() + "/");
+                    if (!path1.exists()) {
+                        path1.mkdirs();
+                    }
+
+                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+                    File path2 = new File(Config.LOCAL_FILE_PATH
+                            + basicInfo.getOrderID() + "/"
+                            + basicInfo.getKeyInfo() + "_" + title + ".jpg");
+
+                    Uri uri = Uri.fromFile(path2);
+
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+                    intent.putExtra("pictureName", path2);
+                    ((Activity) activityContext).startActivityForResult(intent,
+                            1);
+
+                }
+            });
+        }
 
         return buttonLayout;
     }
 
-    public void uploadPicture(){
+    public void uploadPicture() {
 
     }
 
-
-    public void setPhotoOnclickListener(OnClickListener listener){
-        if(hasBtn)
+    public void setPhotoOnclickListener(OnClickListener listener) {
+        if (hasBtn)
             btn.setOnClickListener(listener);
     }
 
@@ -391,7 +379,7 @@ public class CheckItem {
 
     }
 
-    public void setUserInput(JSONObject js){
+    public void setUserInput(JSONObject js) {
         JSONObject itemJs = new JSONObject();
         try {
             itemJs = js.getJSONObject(title);
@@ -400,7 +388,7 @@ public class CheckItem {
             e.printStackTrace();
         }
 
-        for(int i = 0; i< 6; i++){
+        for (int i = 0; i < 6; i++) {
             try {
                 spinner[i].setSelection(itemJs.getInt(listName[i]));
             } catch (JSONException e) {
@@ -409,7 +397,7 @@ public class CheckItem {
             }
         }
 
-        if(hasEdit)
+        if (hasEdit)
             try {
                 editText.setText(itemJs.getString("edit"));
             } catch (JSONException e) {
@@ -418,6 +406,14 @@ public class CheckItem {
             }
         Log.e("", "setUserInput itemjs = " + itemJs);
         Log.e("", "setUserInput js = " + js);
+    }
+
+    public double getSore() {
+        double itemScore = 0;
+        for (int i = 0; i < 6; i++) {
+            itemScore += dropDownListScore[i][dropDownListResult[i]];
+        }
+        return itemScore;
     }
 
 }

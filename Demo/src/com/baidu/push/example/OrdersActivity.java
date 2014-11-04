@@ -116,9 +116,9 @@ public class OrdersActivity extends Activity {
                     e1.printStackTrace();
                 }
                 try {
-                processed_order_contentStrings[size-i-1] = "订单号：" + js.getString("订单号：") +
-                                                               "\n客户姓名："+ js.getString("客户姓名：") +
-                                                               " 时间：" + js.getString("时间：");
+                processed_order_contentStrings[size-i-1] = js.getString("订单号：") +
+                                                               "; "+ js.getString("客户姓名：") +
+                                                               "; " + js.getString("时间：") + "; " + js.getString("totalScore") + "分";
                 Log.e("", "ok find 订单号 " + processed_order_contentStrings[size-i-1]);
 
                 } catch (Exception e) {
