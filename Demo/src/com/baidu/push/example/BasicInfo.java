@@ -37,7 +37,7 @@ public class BasicInfo {
     public View createBasicInfoItem(final Context activityContext) {
 
         LayoutInflater layoutInflater = LayoutInflater.from(activityContext);
-        ViewGroup Layout = (ViewGroup) layoutInflater.inflate(R.layout.basic_info, null);
+        ViewGroup Layout = (ViewGroup) layoutInflater.inflate(R.layout.basic_linear_layout, null);
 
 
         for(int i = 0; i<basicInfo.length; i++)

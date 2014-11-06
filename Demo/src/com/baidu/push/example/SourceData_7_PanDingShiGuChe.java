@@ -1,12 +1,42 @@
 package com.baidu.push.example;
 //1
-public class SourceData_7_PanDingShiGuChe {
+public class SourceData_7_PanDingShiGuChe extends SourceDataBase{
 
+    public int getLength(){
+    	return length;
+    }
+    
+    public int[] getHasSpinner(){
+    	return hasSpinner;
+    }
+    public boolean[] getHasEdit(){
+    	return hasEdit;
+    }
+    public boolean[] getHasBtn(){
+    	return hasBtn;
+    }
 
+    public String[] getDemoListTitle(){
+    	return demoListTitle;
+    }
+    
+    public String[][] getDemoListName(){
+    	return demolistName;
+    }
+    
+    public String[][][] getDemoDropDownListName(){
+    	return demoDropDownListName;
+    }
+    
+    public double[][][] getDemoDropDownListScore(){
+    	return demodropDownListScore;
+    }
+	
+	
     public static int length = 17;
 
     //此处表示检查项目名字
-    public static String[] demoListTitle = new String[]
+    private static String[] demoListTitle = new String[]
     		{"车体左右对称性",
     	"左A柱",
     	"左B柱",
@@ -27,7 +57,7 @@ public class SourceData_7_PanDingShiGuChe {
     	};
 
     //此处表示检查项目的狀態
-    public static String[][] demolistName = new String[][] {
+    private static String[][] demolistName = new String[][] {
     	{ " ", "", "", "", "", "" },
     	{ " ", "", "", "", "", "" },
         { " ", "", "", "", "", "" },
@@ -47,7 +77,7 @@ public class SourceData_7_PanDingShiGuChe {
         { " ", "", "", "", "", "" }
     };
     //此处表示每一个檢查項目狀態的程度
-    public static String[][][] demoDropDownListName = new String[][][] {
+    private static String[][][] demoDropDownListName = new String[][][] {
     		{{ "正常", "异常", "", "", "", "" },
             { "", "", "", "", "", "" },
             { "", "", "", "", "", "" },
@@ -154,7 +184,7 @@ public class SourceData_7_PanDingShiGuChe {
 
 
     //此处表示得分情况
-    public static double[][][] demodropDownListScore = new double[][][] {
+    private static double[][][] demodropDownListScore = new double[][][] {
     		{{ 0, 0, 0, 0, 0, 0 },
     		{ 0, 0, 0, 0, 0, 0 },
             { 0, 0, 0, 0, 0, 0 },
@@ -260,11 +290,11 @@ public class SourceData_7_PanDingShiGuChe {
     		};
 
     //此处表示整备复选框
-    public static int hasSpinner[] = {1,};
+    private static int hasSpinner[] = {1,};
     //此处表示是否需要备注框
-    public static boolean hasEdit[] = {false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false};
+    private static boolean hasEdit[] = {false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false};
 
     //此处表示是否需要传图片
-    public static boolean hasBtn[] = {false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false};
+    private static boolean hasBtn[] = {false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false};
 
 }
