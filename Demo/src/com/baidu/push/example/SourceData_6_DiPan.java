@@ -234,7 +234,7 @@ public class SourceData_6_DiPan extends SourceDataBase{
     };
 
 
-<<<<<<< HEAD
+
     //此处表示是否整备，0代表默认情况下不显示，1代表“无需整备”“建议整备”“安全整备”三选一，2代表强制生成“安全整备”
     public static int[][][]  hasRepair = new int[][][] {
     	{{ 0, 1, 0, 0, 0, 0 },
@@ -316,11 +316,7 @@ public class SourceData_6_DiPan extends SourceDataBase{
                                                             { 0, 0, 0, 0, 0, 0 },
                                                             { 0, 0, 0, 0, 0, 0 }}
     };
-=======
-    //此处表示整备复选框
-    private static int hasSpinner[] = {1,};
 
->>>>>>> origin/master
     //此处表示是否需要备注框
     private static boolean hasEdit[] = {true,true,true,true,true,true,true,true,true,true,true,true,true};
 

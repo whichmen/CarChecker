@@ -2,33 +2,41 @@ package com.baidu.push.example;
 //1
 public class SourceData_3_FaDongJiCang extends SourceDataBase{
 
-    public int getLength(){
+    @Override
+	public int getLength(){
     	return length;
     }
     
-    public int[] getHasSpinner(){
+    @Override
+	public int[] getHasSpinner(){
     	return hasSpinner;
     }
-    public boolean[] getHasEdit(){
+    @Override
+	public boolean[] getHasEdit(){
     	return hasEdit;
     }
-    public boolean[] getHasBtn(){
+    @Override
+	public boolean[] getHasBtn(){
     	return hasBtn;
     }
 
-    public String[] getDemoListTitle(){
+    @Override
+	public String[] getDemoListTitle(){
     	return demoListTitle;
     }
     
-    public String[][] getDemoListName(){
+    @Override
+	public String[][] getDemoListName(){
     	return demolistName;
     }
     
-    public String[][][] getDemoDropDownListName(){
+    @Override
+	public String[][][] getDemoDropDownListName(){
     	return demoDropDownListName;
     }
     
-    public  double[][][] getDemoDropDownListScore(){
+    @Override
+	public  double[][][] getDemoDropDownListScore(){
     	return demodropDownListScore;
     }
 	
@@ -376,11 +384,7 @@ public class SourceData_3_FaDongJiCang extends SourceDataBase{
                                                                         { 0, 0, 0, 0, 0,0 }}
     };
 
-<<<<<<< HEAD
-=======
-    //此处表示整备复选框
-    private static int hasSpinner[] = {1, };
->>>>>>> origin/master
+
     //此处表示是否需要备注框
     private static boolean hasEdit[] = {true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true};
 

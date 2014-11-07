@@ -10,9 +10,7 @@ public class SourceData_1_ChaYanKeJiaoYiCheLiang extends SourceDataBase{
     	return length;
     }
 	
-    public int[] getHasSpinner(){
-    	return hasSpinner;
-    }
+
 	
     public boolean[] getHasEdit(){
     	return hasEdit;
@@ -235,17 +233,9 @@ public class SourceData_1_ChaYanKeJiaoYiCheLiang extends SourceDataBase{
                                         { 0, 0, 0, 0, 0, 0 },
                                         { 0, 0, 0, 0, 0, 0 }}
 
-<<<<<<< HEAD
+
     		};
-    
-=======
 
-    
-
-    
-    //此处表示整备复选框
-    private static int hasSpinner[] = {0,0,0,0,0,0,0,0};
->>>>>>> origin/master
     //此处表示是否需要备注框
     private static boolean hasEdit[] = {false,false,false,false,false,false,false,false};
 
