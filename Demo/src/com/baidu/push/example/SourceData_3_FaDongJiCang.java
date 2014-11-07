@@ -544,6 +544,6 @@ public class SourceData_3_FaDongJiCang extends SourceDataBase{
     private static boolean hasEdit[] = {true, true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true};
 
     //此处表示是否需要传图片
-    private static boolean hasBtn[] = {false,false,true,false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,false,false,false,false,false,false};
+    private static boolean hasBtn[] = {false,false,false,false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,false,false,false,false,false,false};
 
 }
