@@ -1,12 +1,46 @@
 ﻿
 package com.baidu.push.example;
+
+import android.R.integer;
 //1
-public class SourceData_1_ChaYanKeJiaoYiCheLiang {
+public class SourceData_1_ChaYanKeJiaoYiCheLiang extends SourceDataBase{
 
-    public static int length = 8;
 
+    public int getLength(){
+    	return length;
+    }
+	
+    public int[] getHasSpinner(){
+    	return hasSpinner;
+    }
+	
+    public boolean[] getHasEdit(){
+    	return hasEdit;
+    }
+    public boolean[] getHasBtn(){
+    	return hasBtn;
+    }
+
+    public String[] getDemoListTitle(){
+    	return demoListTitle;
+    }
+    
+    public String[][] getDemoListName(){
+    	return demolistName;
+    }
+    
+    public String[][][] getDemoDropDownListName(){
+    	return demoDropDownListName;
+    }
+    
+    public double[][][] getDemoDropDownListScore(){
+    	return demodropDownListScore;
+    }
+    
+	public static int length = 8;
+    
     //此处表示检查项目名字
-    public static String[] demoListTitle = new String[]
+    private static String[] demoListTitle = new String[]
     		{"是否达到国家强制报废标准",
     	"是否为抵押期间或海关监管期间的车辆",
     	"是否为人民法院、检察院、行政执法等部门依法查封、扣押期间的车辆",
@@ -16,8 +50,10 @@ public class SourceData_1_ChaYanKeJiaoYiCheLiang {
     	"是否走私、非法拼组装车辆",
     	"是否法律法规禁止经营车辆"};
 
+
+    
     //此处表示检查项目的狀態
-    public static String[][] demolistName = new String[][] {
+    private static String[][] demolistName = new String[][] {
     	{ " ", "", "", "", "", "" },
     	{ " ", "", "", "", "", "" },
     	{ " ", "", "", "", "", "" },
@@ -27,8 +63,11 @@ public class SourceData_1_ChaYanKeJiaoYiCheLiang {
     	{ " ", "", "", "", "", "" },
     	{ " ", "", "", "", "", "" }
     };
+    
+
+    
     //此处表示每一个檢查項目狀態的程度
-    public static String[][][] demoDropDownListName = new String[][][] {
+    private static String[][][] demoDropDownListName = new String[][][] {
     		{{ "否", "是", "", "", "", "" },
             { "", "", "", "", "", "" },
             { "", "", "", "", "", "" },
@@ -90,8 +129,9 @@ public class SourceData_1_ChaYanKeJiaoYiCheLiang {
     };
 
 
+
     //此处表示得分情况
-    public static double[][][] demodropDownListScore = new double[][][] {
+    private static double[][][] demodropDownListScore = new double[][][] {
     		{{ 0, 0, 0, 0, 0, 0 },
     		{ 0, 0, 0, 0, 0, 0 },
             { 0, 0, 0, 0, 0, 0 },
@@ -195,12 +235,21 @@ public class SourceData_1_ChaYanKeJiaoYiCheLiang {
                                         { 0, 0, 0, 0, 0, 0 },
                                         { 0, 0, 0, 0, 0, 0 }}
 
+<<<<<<< HEAD
     		};
     
+=======
+
+    
+
+    
+    //此处表示整备复选框
+    private static int hasSpinner[] = {0,0,0,0,0,0,0,0};
+>>>>>>> origin/master
     //此处表示是否需要备注框
-    public static boolean hasEdit[] = {false,false,false,false,false,false,false,false};
+    private static boolean hasEdit[] = {false,false,false,false,false,false,false,false};
 
     //此处表示是否需要传图片
-    public static boolean hasBtn[] = {false,false,false,false,false,false,false,false};
+    private static boolean hasBtn[] = {false,false,false,false,false,false,false,false};
 
 }

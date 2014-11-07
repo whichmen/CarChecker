@@ -1,11 +1,42 @@
 package com.baidu.push.example;
 //1
-public class SourceData_3_FaDongJiCang {
+public class SourceData_3_FaDongJiCang extends SourceDataBase{
 
+    public int getLength(){
+    	return length;
+    }
+    
+    public int[] getHasSpinner(){
+    	return hasSpinner;
+    }
+    public boolean[] getHasEdit(){
+    	return hasEdit;
+    }
+    public boolean[] getHasBtn(){
+    	return hasBtn;
+    }
+
+    public String[] getDemoListTitle(){
+    	return demoListTitle;
+    }
+    
+    public String[][] getDemoListName(){
+    	return demolistName;
+    }
+    
+    public String[][][] getDemoDropDownListName(){
+    	return demoDropDownListName;
+    }
+    
+    public  double[][][] getDemoDropDownListScore(){
+    	return demodropDownListScore;
+    }
+	
+	
     public static int length = 16;
 
     //此处表示检查项目名字
-    public static String[] demoListTitle = new String[]
+    private static String[] demoListTitle = new String[]
     		{"机油有无冷却液混入",
     	"机油位是否正常",
     	"缸盖外是否有机油渗漏",
@@ -25,7 +56,7 @@ public class SourceData_3_FaDongJiCang {
 };
 
     //此处表示检查项目的狀態
-    public static String[][] demolistName = new String[][] {
+    private static String[][] demolistName = new String[][] {
     	{ " ", "", "", "", "", "" },
     	{ " ", "", "", "", "", "" },
     	{ " ", "", "", "", "", "" },
@@ -44,7 +75,7 @@ public class SourceData_3_FaDongJiCang {
     	{ " ", "", "", "", "", "" },
     };
     //此处表示每一个檢查項目狀態的程度
-    public static String[][][] demoDropDownListName = new String[][][] {
+    private static String[][][] demoDropDownListName = new String[][][] {
     		{{ "无", "轻微", "严重", "", "", "" },
             { "", "", "", "", "","" },
             { "", "", "", "", "","" },
@@ -145,7 +176,7 @@ public class SourceData_3_FaDongJiCang {
 
 
     //此处表示得分情况
-    public static double[][][] demodropDownListScore = new double[][][] {
+    private static double[][][] demodropDownListScore = new double[][][] {
     		{{ 0, -15, -15, 0, 0, 0 },
     		{ 0, 0, 0, 0, 0, 0 },
             { 0, 0, 0, 0, 0, 0 },
@@ -345,10 +376,15 @@ public class SourceData_3_FaDongJiCang {
                                                                         { 0, 0, 0, 0, 0,0 }}
     };
 
+<<<<<<< HEAD
+=======
+    //此处表示整备复选框
+    private static int hasSpinner[] = {1, };
+>>>>>>> origin/master
     //此处表示是否需要备注框
-    public static boolean hasEdit[] = {true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true};
+    private static boolean hasEdit[] = {true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true};
 
     //此处表示是否需要传图片
-    public static boolean hasBtn[] = {true,false, false, false, false, false, false, false, false, false, false, false, false, false, false, false};
+    private static boolean hasBtn[] = {true,false, false, false, false, false, false, false, false, false, false, false, false, false, false, false};
 
 }
