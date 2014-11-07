@@ -3,10 +3,13 @@ package com.baidu.push.example;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.baidu.frontia.Frontia;
 import com.baidu.frontia.FrontiaFile;
@@ -16,31 +19,28 @@ import com.baidu.frontia.api.FrontiaStorageListener.FileOperationListener;
 import com.baidu.frontia.api.FrontiaStorageListener.FileProgressListener;
 import com.baidu.frontia.api.FrontiaStorageListener.FileTransferListener;
 
-public class AppFileActivity extends Activity {
+public class FileUtils  {
 
-	private FrontiaStorage mCloudStorage;
+	private static FrontiaStorage mCloudStorage = Frontia.getStorage();;
 
 	private TextView mResultTextView;
 	private TextView mInfoView;
 
-    private FrontiaFile mFile;
+    private static FrontiaFile mFile = new FrontiaFile();
     private Button listButton;
     private Button uploadFileButton;
     private Button downloadFileButton;
     private Button deleteFileButton;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setupViews();
+//	@Override
+//	protected void onCreate(Bundle savedInstanceState) {
+//		super.onCreate(savedInstanceState);
+//		setupViews();
 
-		mFile = new FrontiaFile();
-		mFile.setNativePath("/sdcard/test/112.jpg");
-		mFile.setRemotePath("/test/112.jpg");
-		mCloudStorage = Frontia.getStorage();
-	}
 
-	private void setupViews() {
+//	}
+
+/*	private void setupViews() {
 		setContentView(R.layout.app_file_storage);
 
 		mResultTextView = (TextView)findViewById(R.id.appFileResult);
@@ -89,34 +89,49 @@ public class AppFileActivity extends Activity {
 
 		});
 
-	}
+	}*/
 
     private void clearViews(){
         mResultTextView.setText("");
         mInfoView.setText("");
     }
 
-    protected void uploadFile() {
+    public static void uploadFile(String loackPath, String remotePath, final ProgressDialog pd, final Callback callback) {
+    	
+		mFile.setNativePath(loackPath);
+		mFile.setRemotePath(remotePath);
+		mCloudStorage = Frontia.getStorage();
+		
     	mCloudStorage.uploadFile(mFile,
                 new FileProgressListener() {
                     @Override
                     public void onProgress(String source, long bytes, long total) {
-                    	mInfoView.setText(source + " upload......:"
-                                + bytes * 100 / total + "%");
+                     	Log.e("",  "uploadFile onProgress = " + bytes);
+//                    	mInfoView.setText(source + " upload......:"
+//                                + bytes * 100 / total + "%");
+                    	pd.setProgress((int)(bytes * 100 / total));
                     }
                 },
                 new FileTransferListener() {
                     @Override
                     public void onSuccess(String source, String newTargetName) {
+                    	Log.e("",  "uploadFile onSuccess");
                     	mFile.setRemotePath(newTargetName);
-                        mInfoView.setText(source + " uploaded as "
-                                + newTargetName + " in the cloud.\n提示:如果服务器端有同名文件，则上传文件会按时间戳重命名哦~");
+                    	callback.onSuccess();
+                    	pd.dismiss();
+//                        mInfoView.setText(source + " uploaded as "
+//                                + newTargetName + " in the cloud.\n提示:如果服务器端有同名文件，则上传文件会按时间戳重命名哦~");
+                    	Toast.makeText(pd.getContext(), "上传成功", Toast.LENGTH_LONG).show();
                     }
 
                     @Override
                     public void onFailure(String source, int errCode, String errMsg) {
-                    	mInfoView.setText(source + " errCode:"
-                                + errCode + ", errMsg:" + errMsg);
+                    	Toast.makeText(pd.getContext(), "上传失败！！！！", Toast.LENGTH_LONG).show();
+                    	pd.dismiss();
+                    	callback.onFail();
+                       	Log.e("",  "uploadFile onFailure  errCode = "+ errCode + errMsg);
+//                    	mInfoView.setText(source + " errCode:"
+//                                + errCode + ", errMsg:" + errMsg);
                     }
                 }
         );
