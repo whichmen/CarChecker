@@ -2,41 +2,33 @@ package com.baidu.push.example;
 //1
 public class SourceData_9_LuShi extends SourceDataBase{
 
-    @Override
-	public int getLength(){
+    public int getLength(){
     	return length;
     }
     
-    @Override
-	public int[] getHasSpinner(){
+    public int[] getHasSpinner(){
     	return hasSpinner;
     }
-    @Override
-	public boolean[] getHasEdit(){
+    public boolean[] getHasEdit(){
     	return hasEdit;
     }
-    @Override
-	public boolean[] getHasBtn(){
+    public boolean[] getHasBtn(){
     	return hasBtn;
     }
 
-    @Override
-	public String[] getDemoListTitle(){
+    public String[] getDemoListTitle(){
     	return demoListTitle;
     }
     
-    @Override
-	public String[][] getDemoListName(){
+    public String[][] getDemoListName(){
     	return demolistName;
     }
     
-    @Override
-	public String[][][] getDemoDropDownListName(){
+    public String[][][] getDemoDropDownListName(){
     	return demoDropDownListName;
     }
     
-    @Override
-	public double[][][] getDemoDropDownListScore(){
+    public double[][][] getDemoDropDownListScore(){
     	return demodropDownListScore;
     }
 	
@@ -185,65 +177,8 @@ public class SourceData_9_LuShi extends SourceDataBase{
                                             { 0, 0, 0, 0, 0, 0 }}
    };
 
-
-    //此处表示是否整备，0代表默认情况下不显示，1代表“无需整备”“建议整备”“安全整备”三选一，2代表强制生成“安全整备”
-    public static int[][][]  hasRepair = new int[][][] {
-    	{{ 0, 1, 0, 0, 0, 0 },
-            { 0, 0, 0, 0, 0, 0 },
-            { 0, 0, 0, 0, 0, 0 },
-            { 0, 0, 0, 0, 0, 0 },
-            { 0, 0, 0, 0, 0, 0 },
-            { 0, 0, 0, 0, 0, 0 }},
-            {{ 0, 1, 0, 0, 0, 0 },
-                { 0, 0, 0, 0, 0, 0 },
-                { 0, 0, 0, 0, 0, 0 },
-                { 0, 0, 0, 0, 0, 0 },
-                { 0, 0, 0, 0, 0, 0 },
-                { 0, 0, 0, 0, 0, 0 }},
-                {{ 0, 1, 0, 0, 0, 0 },
-                    { 0, 0, 0, 0, 0, 0 },
-                    { 0, 0, 0, 0, 0, 0 },
-                    { 0, 0, 0, 0, 0, 0 },
-                    { 0, 0, 0, 0, 0, 0 },
-                    { 0, 0, 0, 0, 0, 0 }},
-                    {{ 0, 1, 0, 0, 0, 0 },
-                        { 0, 0, 0, 0, 0, 0 },
-                        { 0, 0, 0, 0, 0, 0 },
-                        { 0, 0, 0, 0, 0, 0 },
-                        { 0, 0, 0, 0, 0, 0 },
-                        { 0, 0, 0, 0, 0, 0 }},
-                        {{ 0, 1, 0, 0, 0, 0 },
-                            { 0, 0, 0, 0, 0, 0 },
-                            { 0, 0, 0, 0, 0, 0 },
-                            { 0, 0, 0, 0, 0, 0 },
-                            { 0, 0, 0, 0, 0, 0 },
-                            { 0, 0, 0, 0, 0, 0 }},
-                            {{ 0, 2, 0, 0, 0, 0 },
-                                { 0, 0, 0, 0, 0, 0 },
-                                { 0, 0, 0, 0, 0, 0 },
-                                { 0, 0, 0, 0, 0, 0 },
-                                { 0, 0, 0, 0, 0, 0 },
-                                { 0, 0, 0, 0, 0, 0 }},
-                                {{ 0, 1, 0, 0, 0, 0 },
-                                    { 0, 0, 0, 0, 0, 0 },
-                                    { 0, 0, 0, 0, 0, 0 },
-                                    { 0, 0, 0, 0, 0, 0 },
-                                    { 0, 0, 0, 0, 0, 0 },
-                                    { 0, 0, 0, 0, 0, 0 }},
-                                    {{ 0, 1, 0, 0, 0, 0 },
-                                        { 0, 0, 0, 0, 0, 0 },
-                                        { 0, 0, 0, 0, 0, 0 },
-                                        { 0, 0, 0, 0, 0, 0 },
-                                        { 0, 0, 0, 0, 0, 0 },
-                                        { 0, 0, 0, 0, 0, 0 }},
-                                        {{ 0, 1, 0, 0, 0, 0 },
-                                            { 0, 0, 0, 0, 0, 0 },
-                                            { 0, 0, 0, 0, 0, 0 },
-                                            { 0, 0, 0, 0, 0, 0 },
-                                            { 0, 0, 0, 0, 0, 0 },
-                                            { 0, 0, 0, 0, 0, 0 }}
-    };
-
+    //此处表示整备复选框
+    private static int hasSpinner[] = {1,};
     //此处表示是否需要备注框
     private static boolean hasEdit[] = {true,true,true,true,true,true,true,true,true};
 
