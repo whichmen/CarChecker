@@ -44,7 +44,7 @@ public class ProcessOrderActivity extends Activity {
 
 	private RelativeLayout mainLayout;
 
-	private ViewGroup linearLayout[] = new ViewGroup[10];
+	private ViewGroup linearLayout[] = new ViewGroup[SourceData_Category.length];
 
 	public static final int MAX_ITEMS = 140;
 
@@ -57,7 +57,7 @@ public class ProcessOrderActivity extends Activity {
 	// + SourceData_7_PanDingShiGuChe.length
 	// + SourceData_8_QiDongJianCha.length + SourceData_9_LuShi.length;
 
-	private SourceDataBase[] sourceDataBase = new SourceDataBase[10];
+	private SourceDataBase[] sourceDataBase = new SourceDataBase[SourceData_Category.length];
 
 	CheckItem[] ci = new CheckItem[MAX_ITEMS];
 
@@ -65,14 +65,13 @@ public class ProcessOrderActivity extends Activity {
 
 	public void initSourceDataBase() {
 		sourceDataBase[1] = new SourceData_1_ChaYanKeJiaoYiCheLiang();
-		sourceDataBase[2] = new SourceData_2_CheShenWaiGuan();
-		sourceDataBase[3] = new SourceData_3_FaDongJiCang();
-		sourceDataBase[4] = new SourceData_4_GongNengXingLingBuJian();
+		sourceDataBase[2] = new SourceData_2_DiPan();
+		sourceDataBase[3] = new SourceData_3_CheShenWaiGuan();
+		sourceDataBase[4] = new SourceData_4_FaDongJiCang();
 		sourceDataBase[5] = new SourceData_5_JiaShiCangJianCha();
-		sourceDataBase[6] = new SourceData_6_DiPan();
-		sourceDataBase[7] = new SourceData_7_PanDingShiGuChe();
-		sourceDataBase[8] = new SourceData_8_QiDongJianCha();
-		sourceDataBase[9] = new SourceData_9_LuShi();
+		sourceDataBase[6] = new SourceData_6_PanDingShiGuChe();
+		sourceDataBase[7] = new SourceData_7_QiDongJianCha();
+		sourceDataBase[8] = new SourceData_8_LuShi();
 
 	}
 
@@ -198,7 +197,7 @@ public class ProcessOrderActivity extends Activity {
 		// for check items
 		int index = 0;
 
-		for (int i = 1; i < 10; i++) {
+		for (int i = 1; i < SourceData_Category.length; i++) {
 			createCategory(i, index, sourceDataBase[i]);
 			index += sourceDataBase[i].getLength();
 		}
@@ -354,7 +353,7 @@ public class ProcessOrderActivity extends Activity {
 				mDrawerList.setItemChecked(position, true);
 				setTitle(mPlanetTitles[position]);
 				mDrawerLayout.closeDrawer(mDrawerList);
-				for (int i = 0; i < 10; i++)
+				for (int i = 0; i < SourceData_Category.length; i++)
 					linearLayout[i].setVisibility(View.INVISIBLE);
 
 				linearLayout[position].setVisibility(View.VISIBLE);

@@ -7,19 +7,18 @@ import android.widget.TextView;
 
 public class SourceData_Category {
 
-    public static int length = 10;
+    public static int length = 9;
 
     public static String[] titleStrings = new String[]{
         "用户订单以及车辆基本信息",
         "1:查验可交易车辆",
-        "2:车身外观",
-        "3:发动机仓",
-        "4:功能性零部件",
+        "2:底盘",
+        "3:车身外观",
+        "4:发动机仓",
         "5:驾驶舱检查",
-        "6:底盘",
-        "7:判定事故车",
-        "8:启动检查",
-        "9:路试"
+        "6:判定事故车",
+        "7:启动检查",
+        "8:路试"
 
     };
 

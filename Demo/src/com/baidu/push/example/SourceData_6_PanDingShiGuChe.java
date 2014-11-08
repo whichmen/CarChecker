@@ -1,6 +1,6 @@
 package com.baidu.push.example;
 //1
-public class SourceData_7_PanDingShiGuChe extends SourceDataBase{
+public class SourceData_6_PanDingShiGuChe extends SourceDataBase{
 
     public int getLength(){
     	return length;
