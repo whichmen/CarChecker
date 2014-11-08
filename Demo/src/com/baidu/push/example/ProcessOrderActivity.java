@@ -353,16 +353,9 @@ public class ProcessOrderActivity extends Activity {
 				mDrawerList.setItemChecked(position, true);
 				setTitle(mPlanetTitles[position]);
 				mDrawerLayout.closeDrawer(mDrawerList);
-<<<<<<< Updated upstream
-				for (int i = 0; i < SourceData_Category.length; i++)
-					linearLayout[i].setVisibility(View.INVISIBLE);
-=======
-				mainLayout.removeAllViews();
-//				for (int i = 0; i < 10; i++){
-//					
+//				for (int i = 0; i < SourceData_Category.length; i++)
 //					linearLayout[i].setVisibility(View.INVISIBLE);
-//				}
->>>>>>> Stashed changes
+				mainLayout.removeAllViews();
 
 				mainLayout.addView(linearLayout[position]);
 				linearLayout[position].setVisibility(View.VISIBLE);
