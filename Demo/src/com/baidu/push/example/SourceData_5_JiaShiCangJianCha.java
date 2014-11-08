@@ -2,33 +2,41 @@ package com.baidu.push.example;
 //1
 public class SourceData_5_JiaShiCangJianCha extends SourceDataBase{
 
-    public int getLength(){
+    @Override
+	public int getLength(){
     	return length;
     }
     
-    public int[][][] getHasRepair(){
+    @Override
+	public int[][][] getHasRepair(){
     	return hasRepair;
     }
-    public boolean[] getHasEdit(){
+    @Override
+	public boolean[] getHasEdit(){
     	return hasEdit;
     }
-    public boolean[] getHasBtn(){
+    @Override
+	public boolean[] getHasBtn(){
     	return hasBtn;
     }
 
-    public String[] getDemoListTitle(){
+    @Override
+	public String[] getDemoListTitle(){
     	return demoListTitle;
     }
     
-    public String[][] getDemoListName(){
+    @Override
+	public String[][] getDemoListName(){
     	return demolistName;
     }
     
-    public String[][][] getDemoDropDownListName(){
+    @Override
+	public String[][][] getDemoDropDownListName(){
     	return demoDropDownListName;
     }
     
-    public double[][][] getDemoDropDownListScore(){
+    @Override
+	public double[][][] getDemoDropDownListScore(){
     	return demodropDownListScore;
     }
 	

@@ -1,7 +1,5 @@
 package com.baidu.push.example;
 
-import android.R.integer;
-
 public class SourceDataBase {
 	
     public int getLength(){

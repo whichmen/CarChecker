@@ -2,11 +2,8 @@ package com.baidu.push.example;
 
 import java.util.List;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;

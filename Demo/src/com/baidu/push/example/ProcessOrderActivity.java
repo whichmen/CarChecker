@@ -3,7 +3,6 @@ package com.baidu.push.example;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.R.integer;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -12,9 +11,9 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.provider.MediaStore.MediaColumns;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -219,11 +218,11 @@ public class ProcessOrderActivity extends Activity {
 
 			Uri uri = data.getData();
 
-			String[] projection = { MediaStore.Images.Media.DATA };
+			String[] projection = { MediaColumns.DATA };
 			Cursor cursor = this.getContentResolver().query(uri, projection,
 					null, null, null);
 			int column_index = cursor
-					.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+					.getColumnIndexOrThrow(MediaColumns.DATA);
 			cursor.moveToFirst();
 			path = cursor.getString(column_index);
 
