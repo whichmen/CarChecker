@@ -6,9 +6,9 @@ public class SourceData_7_PanDingShiGuChe extends SourceDataBase{
     	return length;
     }
     
-   // public int[] getHasSpinner(){
-   // 	return hasSpinner;
-   // }
+    public int[][][] getHasRepair(){
+    	return hasRepair;
+    }
     public boolean[] getHasEdit(){
     	return hasEdit;
     }

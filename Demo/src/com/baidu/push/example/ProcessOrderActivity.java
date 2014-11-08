@@ -3,6 +3,7 @@ package com.baidu.push.example;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.R.integer;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -86,6 +87,7 @@ public class ProcessOrderActivity extends Activity {
 				.getDemoDropDownListName();
 		double[][][] demodropDownListScore = sourceDataBase
 				.getDemoDropDownListScore();
+		int[][][] hasRepair = sourceDataBase.getHasRepair();
 		boolean[] hasEdit = sourceDataBase.getHasEdit();
 		boolean[] hasBtn = sourceDataBase.getHasBtn();
 
@@ -99,8 +101,8 @@ public class ProcessOrderActivity extends Activity {
 		linearLayout[categoryID].setLayoutParams(params);
 
 		for (int i = 0; i < sourceDataBase.getLength(); i++) {
-			ci[startItemID] = new CheckItem(demoListTitle[i], demolistName[i],
-					demoDropDownListName[i], demodropDownListScore[i],
+			ci[startItemID] = new CheckItem(demoListTitle[i], demolistName[i], 
+					demoDropDownListName[i], demodropDownListScore[i],hasRepair[i],
 					hasEdit[i], hasBtn[i]);
 			ci[startItemID].setBasicInfoPtr(basicInfo);
 			linearLayout[categoryID].addView(ci[startItemID]

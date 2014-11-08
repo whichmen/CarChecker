@@ -6,9 +6,9 @@ public class SourceData_6_DiPan extends SourceDataBase{
     	return length;
     }
     
-  //  public int[] getHasSpinner(){
-  //  	return hasSpinner;
-   // }
+    public int[][][] getHasRepair(){
+    	return hasRepair;
+    }
     public boolean[] getHasEdit(){
     	return hasEdit;
     }
@@ -200,6 +200,11 @@ public class SourceData_6_DiPan extends SourceDataBase{
                                                                     { "无", "轻微", "较重", "", "", ""  },
                                                                     { "无", "有", "", "", "", "" },
                                                                     { "无", "有", "", "", "", "" }},
+                                                                   
+                                                                       
+                  
+                                                    
+                                                    
                                                     {{ "是", "否", "", "", "", "" },
                                                         { "", "", "", "", "", "" },
                                                         { "", "", "", "", "", "" },
@@ -283,6 +288,7 @@ public class SourceData_6_DiPan extends SourceDataBase{
                                                     { 0, 0, 0, 0, 0, 0 },
                                                     { 0, 0, 0, 0, 0, 0 },
                                                     { 0, 0, 0, 0, 0, 0 }},
+      
                                                     {{ 0, -1, 0, 0, 0, 0 },
                                                 		{ 0, 0, 0, 0, 0, 0 },
                                                         { 0, 0, 0, 0, 0, 0 },
@@ -331,6 +337,8 @@ public class SourceData_6_DiPan extends SourceDataBase{
                                                                     { 0, -0.5, -1, 0, 0, 0 },
                                                                     { 0, -0.5, 0, 0, 0, 0 },
                                                                     { 0, -1, 0, 0, 0, 0 }},
+   
+                                                    
                                                     {{ 0, -2, 0, 0, 0, 0 },
                                                 		{ 0, 0, 0, 0, 0, 0 },
                                                         { 0, 0, 0, 0, 0, 0 },

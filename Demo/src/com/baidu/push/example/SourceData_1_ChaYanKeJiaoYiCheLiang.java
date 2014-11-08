@@ -10,9 +10,9 @@ public class SourceData_1_ChaYanKeJiaoYiCheLiang extends SourceDataBase{
     	return length;
     }
 	
-    //public int[] getHasSpinner(){
-   // 	return hasSpinner;
-  //  }
+    public int[][][] getHasRepair(){
+    	return hasRepair;
+    }
 	
     public boolean[] getHasEdit(){
     	return hasEdit;

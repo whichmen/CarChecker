@@ -1,12 +1,14 @@
 package com.baidu.push.example;
 
+import android.R.integer;
+
 public class SourceDataBase {
 	
     public int getLength(){
     	return 0;
     }
     
-    public int[] getHasSpinner(){
+    public int[][][] getHasRepair(){
     	return null;
     }
     public boolean[] getHasEdit(){
@@ -31,4 +33,5 @@ public class SourceDataBase {
     public double[][][] getDemoDropDownListScore(){
     	return null;
     }
+   
 }

@@ -5,6 +5,7 @@ import java.io.File;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.R.integer;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -45,13 +46,21 @@ public class CheckItem {
 
 	private BasicInfo basicInfo = null;
 	private int[] dropDownListResult = new int[6];
-
+	private int[][] repairTag = new int[6][6];
+	private int repairResult = -1;
+	private Spinner repairSpinner = null;
+	private static String[] repairSpinnerName = {"无需整备","建议整备","安全整备"};
+	
+	private boolean[] spinnerAutoVisitedTag = {false, false, false, false, false, false};
+	private boolean repairSpinnerAutoVisitedTag = false;
+	
 	public CheckItem(String title, String[] listName, String[][] itemName,
-			double[][] itemScore, boolean hasEdit, boolean hasBtn) {
+			double[][] itemScore, int[][] repairTag, boolean hasEdit, boolean hasBtn) {
 
 		dropDownListName = itemName;
 		dropDownListScore = itemScore;
 
+		this.repairTag = repairTag;
 		this.title = title;
 		this.listName = listName;
 		this.hasEdit = hasEdit;
@@ -75,6 +84,35 @@ public class CheckItem {
 
 		titleTxt = (TextView) buttonLayout.findViewById(R.id.checkitem_title);
 		titleTxt.setText(title);
+		
+		repairSpinner = (Spinner)buttonLayout.findViewById(R.id.Spinner_repair);
+		
+		adapter = new ArrayAdapter<String>(activityContext,
+				android.R.layout.simple_spinner_item, repairSpinnerName);
+		
+		
+		repairSpinner.setAdapter(adapter);
+		repairSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+			
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				if(repairSpinnerAutoVisitedTag == false){
+					repairSpinnerAutoVisitedTag = true;
+					return;
+				}
+				// TODO Auto-generated method stub
+				repairResult = arg2;
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+		});
 
 		spinner[0] = (Spinner) buttonLayout.findViewById(R.id.Spinner1);
 		spinner[1] = (Spinner) buttonLayout.findViewById(R.id.Spinner2);
@@ -121,7 +159,13 @@ public class CheckItem {
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
+				if(spinnerAutoVisitedTag[0] == false){
+					spinnerAutoVisitedTag[0] = true;
+					return;
+				}
+				
 				dropDownListResult[0] = arg2;
+				setRepairSpinnerStatus(checkRepairSpinnerStatus());
 			}
 
 			@Override
@@ -137,8 +181,14 @@ public class CheckItem {
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
+				if(spinnerAutoVisitedTag[1] == false){
+					spinnerAutoVisitedTag[1] = true;
+					return;
+				}
+				
 				// TODO Auto-generated method stub
 				dropDownListResult[1] = arg2;
+				setRepairSpinnerStatus(checkRepairSpinnerStatus());
 			}
 
 			@Override
@@ -154,8 +204,13 @@ public class CheckItem {
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
+				if(spinnerAutoVisitedTag[2] == false){
+					spinnerAutoVisitedTag[2] = true;
+					return;
+				}
 				// TODO Auto-generated method stub
 				dropDownListResult[2] = arg2;
+				setRepairSpinnerStatus(checkRepairSpinnerStatus());
 			}
 
 			@Override
@@ -171,8 +226,13 @@ public class CheckItem {
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
+				if(spinnerAutoVisitedTag[3] == false){
+					spinnerAutoVisitedTag[3] = true;
+					return;
+				}
 				// TODO Auto-generated method stub
 				dropDownListResult[3] = arg2;
+				setRepairSpinnerStatus(checkRepairSpinnerStatus());
 			}
 
 			@Override
@@ -188,8 +248,13 @@ public class CheckItem {
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
+				if(spinnerAutoVisitedTag[4] == false){
+					spinnerAutoVisitedTag[4] = true;
+					return;
+				}
 				// TODO Auto-generated method stub
 				dropDownListResult[4] = arg2;
+				setRepairSpinnerStatus(checkRepairSpinnerStatus());
 			}
 
 			@Override
@@ -205,8 +270,13 @@ public class CheckItem {
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
+				if(spinnerAutoVisitedTag[5] == false){
+					spinnerAutoVisitedTag[5] = true;
+					return;
+				}
 				// TODO Auto-generated method stub
 				dropDownListResult[5] = arg2;
+				setRepairSpinnerStatus(checkRepairSpinnerStatus());
 			}
 
 			@Override
@@ -249,6 +319,46 @@ public class CheckItem {
 
 		return buttonLayout;
 	}
+	
+	private int checkRepairSpinnerStatus(){
+		
+		int max = 0;
+		for(int i=0; i < 6; i ++)
+		{
+			max = java.lang.Math.max(max, repairTag[i][dropDownListResult[i]]);
+		}
+		return max;
+	}
+	
+	private void setRepairSpinnerStatus(int status){
+		
+		switch (status) {
+		//强制安全
+		case 0:
+			repairResult = -1;
+			repairSpinner.setVisibility(View.INVISIBLE);
+			repairSpinner.setClickable(false);
+			repairSpinner.setSelection(0);
+			break;
+	    //用户可以选择是否整备
+		case 1:
+			repairResult = 0;
+			repairSpinner.setVisibility(View.VISIBLE);
+			repairSpinner.setSelection(0);
+			repairSpinner.setClickable(true);
+			break;
+		//强制必须整备
+		case 2:
+			repairResult = 2;
+			repairSpinner.setVisibility(View.VISIBLE);
+			repairSpinner.setSelection(2);
+			repairSpinner.setClickable(false);
+			break;
+		default:
+			break;
+		}
+
+	}
 
 	public void uploadPicture() {
 
@@ -269,6 +379,14 @@ public class CheckItem {
 				e.printStackTrace();
 			}
 		}
+		
+		try {
+			itemJs.put("repairMode", repairResult);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 
 		if (hasEdit) {
 			try {
@@ -299,10 +417,21 @@ public class CheckItem {
 
 		for (int i = 0; i < 6; i++) {
 			try {
-				spinner[i].setSelection(itemJs.getInt(listName[i]));
+				dropDownListResult[i] = itemJs.getInt(listName[i]);
+				spinner[i].setSelection(dropDownListResult[i]);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
+		}
+		
+		try {
+			setRepairSpinnerStatus(checkRepairSpinnerStatus());
+			
+			repairResult = itemJs.getInt("repairMode");
+			repairSpinner.setSelection(repairResult);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 		if (hasEdit)

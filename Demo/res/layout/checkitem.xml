@@ -4,8 +4,6 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-
-    
     <TextView
         android:id="@+id/checkitem_title"
         android:layout_width="fill_parent"
@@ -143,12 +141,11 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
 
-        <EditText
-            android:id="@+id/checkitem_edit"
+        <Spinner
+            android:id="@+id/Spinner_repair"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:hint="备注" />
+            android:layout_weight="1" />
 
         <Button
             android:id="@+id/checkitem_btn"
@@ -158,10 +155,22 @@
             android:text="上传照片" />
     </LinearLayout>
 
-        <View  
-   android:layout_width="fill_parent"  
-    android:layout_height="1px" 
-   android:background="@color/darker_blue"  
-/>  
-    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <EditText
+            android:id="@+id/checkitem_edit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:hint="备注" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:background="@color/darker_blue" />
+
 </LinearLayout>
