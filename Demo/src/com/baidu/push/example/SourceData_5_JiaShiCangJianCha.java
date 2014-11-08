@@ -33,11 +33,16 @@ public class SourceData_5_JiaShiCangJianCha extends SourceDataBase{
     }
 	
 	
-    public static int length = 20;
+    public static int length = 24;
 
     //此处表示检查项目名字
     private static String[] demoListTitle = new String[]
-    		{"车内是否无水泡痕迹",
+    		{
+    	"全套钥匙",
+    	"遥控器及功能",
+    	"喇叭高低音色",
+    	"玻璃加热功能",
+    	"车内是否无水泡痕迹",
      	"车内是否整洁、无异味",
     	"车内后视镜是否完整、无破损、功能正常",
       	"天窗是否移动灵活、关闭正常",
@@ -80,11 +85,39 @@ public class SourceData_5_JiaShiCangJianCha extends SourceDataBase{
     	{ " ", "", "", "", "", "" },
     	{ " ", "", "", "", "", "" },
     	{ " ", "", "", "", "", "" },
+    	{ " ", "", "", "", "", "" },
+    	{ " ", "", "", "", "", "" },
+    	{ " ", "", "", "", "", "" },
+    	{ " ", "", "", "", "", "" },
     	{ " ", "", "", "", "", "" }
     };
     //此处表示每一个檢查項目狀態的程度
     private static String[][][] demoDropDownListName = new String[][][] {
-    		{{ "是", "否", "", "", "", "" },
+    	  {{ "正常", "异常", "", "", "", "" },
+              { "", "", "", "", "", "" },
+              { "", "", "", "", "", "" },
+              { "", "", "", "", "", "" },
+              { "", "", "", "", "", "" },
+              { "", "", "", "", "", "" }},
+              {{ "正常", "异常", "", "", "", "" },
+                  { "", "", "", "", "", "" },
+                  { "", "", "", "", "", "" },
+                  { "", "", "", "", "", "" },
+                  { "", "", "", "", "", "" },
+                  { "", "", "", "", "", "" }},
+                  {{ "正常", "异常", "", "", "", "" },
+                      { "", "", "", "", "", "" },
+                      { "", "", "", "", "", "" },
+                      { "", "", "", "", "", "" },
+                      { "", "", "", "", "", "" },
+                      { "", "", "", "", "", "" }},
+                      {{ "正常", "异常", "", "", "", "" },
+                          { "", "", "", "", "", "" },
+                          { "", "", "", "", "", "" },
+                          { "", "", "", "", "", "" },
+                          { "", "", "", "", "", "" },
+                          { "", "", "", "", "", "" }},	
+    	{{ "是", "否", "", "", "", "" },
             { "", "", "", "", "", "" },
             { "", "", "", "", "", "" },
             { "", "", "", "", "", "" },
@@ -209,7 +242,31 @@ public class SourceData_5_JiaShiCangJianCha extends SourceDataBase{
 
     //此处表示得分情况
     private static double[][][] demodropDownListScore = new double[][][] {
-    		{{ 0, -1.5, 0, 0, 0, 0 },
+    	   {{ 0, 0, 0, 0, 0, 0 },
+       		{ 0, 0, 0, 0, 0, 0 },
+               { 0, 0, 0, 0, 0, 0 },
+               { 0, 0, 0, 0, 0, 0 },
+               { 0, 0, 0, 0, 0, 0 },
+               { 0, 0, 0, 0, 0, 0 }},
+               {{ 0, 0, 0, 0, 0, 0 },
+           		{ 0, 0, 0, 0, 0, 0 },
+                   { 0, 0, 0, 0, 0, 0 },
+                   { 0, 0, 0, 0, 0, 0 },
+                   { 0, 0, 0, 0, 0, 0 },
+                   { 0, 0, 0, 0, 0, 0 }},
+                   {{ 0, 0, 0, 0, 0, 0 },
+               		{ 0, 0, 0, 0, 0, 0 },
+                       { 0, 0, 0, 0, 0, 0 },
+                       { 0, 0, 0, 0, 0, 0 },
+                       { 0, 0, 0, 0, 0, 0 },
+                       { 0, 0, 0, 0, 0, 0 }},
+                       {{ 0, 0, 0, 0, 0, 0 },
+                   		{ 0, 0, 0, 0, 0, 0 },
+                           { 0, 0, 0, 0, 0, 0 },
+                           { 0, 0, 0, 0, 0, 0 },
+                           { 0, 0, 0, 0, 0, 0 },
+                           { 0, 0, 0, 0, 0, 0 }},
+    	{{ 0, -1.5, 0, 0, 0, 0 },
     		{ 0, 0, 0, 0, 0, 0 },
             { 0, 0, 0, 0, 0, 0 },
             { 0, 0, 0, 0, 0, 0 },
@@ -335,7 +392,31 @@ public class SourceData_5_JiaShiCangJianCha extends SourceDataBase{
 
     //此处表示是否整备，0代表默认情况下不显示，1代表“无需整备”“建议整备”“安全整备”三选一，2代表强制生成“安全整备”
     public static int[][][]  hasRepair = new int[][][] {
-		{{ 0, 1, 0, 0, 0, 0 },
+    	  {{ 0, 1, 0, 0, 0, 0 },
+              { 0, 0, 0, 0, 0, 0 },
+              { 0, 0, 0, 0, 0, 0 },
+              { 0, 0, 0, 0, 0, 0 },
+              { 0, 0, 0, 0, 0, 0 },
+              { 0, 0, 0, 0, 0, 0 }},
+              {{ 0, 1, 0, 0, 0, 0 },
+                  { 0, 0, 0, 0, 0, 0 },
+                  { 0, 0, 0, 0, 0, 0 },
+                  { 0, 0, 0, 0, 0, 0 },
+                  { 0, 0, 0, 0, 0, 0 },
+                  { 0, 0, 0, 0, 0, 0 }},
+                  {{ 0, 1, 0, 0, 0, 0 },
+                      { 0, 0, 0, 0, 0, 0 },
+                      { 0, 0, 0, 0, 0, 0 },
+                      { 0, 0, 0, 0, 0, 0 },
+                      { 0, 0, 0, 0, 0, 0 },
+                      { 0, 0, 0, 0, 0, 0 }},
+                      {{ 0, 1, 0, 0, 0, 0 },
+                          { 0, 0, 0, 0, 0, 0 },
+                          { 0, 0, 0, 0, 0, 0 },
+                          { 0, 0, 0, 0, 0, 0 },
+                          { 0, 0, 0, 0, 0, 0 },
+                          { 0, 0, 0, 0, 0, 0 }},
+    	{{ 0, 1, 0, 0, 0, 0 },
             { 0, 0, 0, 0, 0, 0 },
             { 0, 0, 0, 0, 0, 0 },
             { 0, 0, 0, 0, 0, 0 },
@@ -454,14 +535,13 @@ public class SourceData_5_JiaShiCangJianCha extends SourceDataBase{
                                                                             { 0, 0, 0, 0, 0, 0 },
                                                                             { 0, 0, 0, 0, 0, 0 },
                                                                             { 0, 0, 0, 0, 0, 0 },
-                                                                            { 0, 0, 0, 0, 0, 0 }}
-                                                                   
+                                                                            { 0, 0, 0, 0, 0, 0 }}                                                                  
     };
 
     //此处表示是否需要备注框
-    private static boolean hasEdit[] = {true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true};
+    private static boolean hasEdit[] = {true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true};
 
     //此处表示是否需要传图片
-    private static boolean hasBtn[] = {false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false};
+    private static boolean hasBtn[] = {false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false};
 
 }
