@@ -43,6 +43,13 @@ public class SourceData_5_JiaShiCangJianCha extends SourceDataBase{
 	
     public static int length = 24;
 
+    @Override
+	public int startItemID(){
+		return startItemID;
+	}
+	
+	private static int startItemID = 80;
+    
     //此处表示检查项目名字
     private static String[] demoListTitle = new String[]
     		{

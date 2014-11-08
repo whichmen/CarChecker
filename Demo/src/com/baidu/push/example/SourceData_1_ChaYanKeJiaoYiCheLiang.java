@@ -44,6 +44,13 @@ public class SourceData_1_ChaYanKeJiaoYiCheLiang extends SourceDataBase{
     }
     
 	public static int length = 8;
+	
+    @Override
+	public int startItemID(){
+		return startItemID;
+	}
+	
+	private static int startItemID = 0;
     
     //此处表示检查项目名字
     private static String[] demoListTitle = new String[]

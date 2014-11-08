@@ -31,5 +31,9 @@ public class SourceDataBase {
     public double[][][] getDemoDropDownListScore(){
     	return null;
     }
+    
+	public int startItemID(){
+		return -1;
+	}
    
 }

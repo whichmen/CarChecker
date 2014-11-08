@@ -43,6 +43,13 @@ public class SourceData_6_PanDingShiGuChe extends SourceDataBase{
 	
     public static int length = 17;
 
+    @Override
+	public int startItemID(){
+		return startItemID;
+	}
+	
+	private static int startItemID = 104;
+    
     //此处表示检查项目名字
     private static String[] demoListTitle = new String[]
     		{"车体左右对称性",//104

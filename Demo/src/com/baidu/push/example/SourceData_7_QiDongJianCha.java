@@ -43,6 +43,13 @@ public class SourceData_7_QiDongJianCha extends SourceDataBase{
 	
     public static int length = 10;
 
+    @Override
+	public int startItemID(){
+		return startItemID;
+	}
+	
+	private static int startItemID = 121;
+    
     //此处表示检查项目名字
     private static String[] demoListTitle = new String[]
     		{"车辆启动是否顺畅（时间小于5s，或一次启动）",//121

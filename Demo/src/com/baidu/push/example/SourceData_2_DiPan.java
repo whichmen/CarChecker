@@ -43,6 +43,13 @@ public class SourceData_2_DiPan extends SourceDataBase{
 	
     public static int length = 21;
 
+    @Override
+	public int startItemID(){
+		return startItemID;
+	}
+	
+	private static int startItemID = 8;
+    
     //此处表示检查项目名字
     private static String[] demoListTitle = new String[]
     		{"发动机油底壳是否无渗漏",//8

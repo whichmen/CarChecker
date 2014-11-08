@@ -43,6 +43,13 @@ public class SourceData_8_LuShi extends SourceDataBase{
 	
     public static int length = 9;
 
+    @Override
+	public int startItemID(){
+		return startItemID;
+	}
+	
+	private static int startItemID = 132;
+
     //此处表示检查项目名字
     private static String[] demoListTitle = new String[]
     		{"发动机运转、加速是否正常",//131

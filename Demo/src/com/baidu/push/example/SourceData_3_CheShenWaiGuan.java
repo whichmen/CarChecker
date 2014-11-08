@@ -40,6 +40,12 @@ public class SourceData_3_CheShenWaiGuan extends SourceDataBase{
     	return demodropDownListScore;
     }
 	
+    @Override
+	public int startItemID(){
+		return startItemID;
+	}
+	
+	private static int startItemID = 29;
 	
     public static int length = 27;
 

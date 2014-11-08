@@ -43,6 +43,13 @@ public class SourceData_4_FaDongJiCang extends SourceDataBase{
 	
     public static int length = 24;
 
+    @Override
+	public int startItemID(){
+		return startItemID;
+	}
+	
+	private static int startItemID = 56;
+    
     //此处表示检查项目名字
     private static String[] demoListTitle = new String[]
     		{"发动机舱盖锁止",//56
