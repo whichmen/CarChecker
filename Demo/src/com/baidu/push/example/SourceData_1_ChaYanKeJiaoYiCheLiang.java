@@ -55,8 +55,6 @@ public class SourceData_1_ChaYanKeJiaoYiCheLiang extends SourceDataBase{
     	"车辆识别代码（VIN码）或车架号码与机动车登记证书登记号码是否一致，且无凿改痕迹",//5
     	"是否走私、非法拼组装车辆",//6
     	"是否法律法规禁止经营车辆"};//7
-
-
     
     //此处表示检查项目的狀態
     private static String[][] demolistName = new String[][] {
