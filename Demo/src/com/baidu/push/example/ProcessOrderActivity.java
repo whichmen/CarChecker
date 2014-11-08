@@ -141,7 +141,6 @@ public class ProcessOrderActivity extends Activity {
 							return;
 						}
 
-						// TODO Auto-generated method stub
 						needSaveCurrentPage = false;
 						try {
 							if (Orders.processingBufferedOrderID == -1) {

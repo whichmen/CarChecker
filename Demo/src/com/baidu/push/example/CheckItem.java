@@ -19,28 +19,29 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class CheckItem {
-
+    //check info not need init
 	public String title = null;
 
-	public String[] listName = new String[6];
-	public String[][] dropDownListName = new String[6][6];
-	public double[][] dropDownListScore = new double[6][6];
+	public String[] listName = null;
+	public String[][] dropDownListName = null;
+	public double[][] dropDownListScore = null;
 
 	public String[] tempDropDownListName = null;
 	public boolean hasEdit = false;
 	public boolean hasBtn = false;
+	private int[][] repairTag = null;
+	private BasicInfo basicInfo = null;
 
+	//widget need init
 	private Spinner[] spinner = new Spinner[6];
 	private ArrayAdapter<String> adapter;
-
 	private TextView[] spinner_name = new TextView[6];
 	private EditText editText;
 	private Button btn;
 	private TextView titleTxt;
 
-	private BasicInfo basicInfo = null;
+	//result info need init
 	private int[] dropDownListResult = new int[6];
-	private int[][] repairTag = new int[6][6];
 	private int repairResult = -1;
 	private Spinner repairSpinner = null;
 	private static String[] repairSpinnerName = {"无需整备","建议整备","安全整备"};
@@ -60,7 +61,6 @@ public class CheckItem {
 		this.hasEdit = hasEdit;
 		this.hasBtn = hasBtn;
 
-		dropDownListResult = new int[6];
 	}
 
 	public void setBasicInfoPtr(BasicInfo basicInfo) {
