@@ -49,7 +49,14 @@ public class PushDemoActivity extends Activity implements View.OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        try {
+			PDFUtils.createPDFByItext();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+        Utils.checkAndCreateDir();        
         // Users.init(getApplicationContext());
         Orders.initFrontia(getApplicationContext());
 

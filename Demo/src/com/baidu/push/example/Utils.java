@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -16,7 +18,9 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 public class Utils {
     public static final String TAG = "PushDemoActivity";
@@ -30,12 +34,27 @@ public class Utils {
     protected static final String EXTRA_ACCESS_TOKEN = "access_token";
     protected static final String EXTRA_EXPIRES_IN = "expires_in";
     public static final String EXTRA_MESSAGE = "message";
-
+    public static final String DIR = Environment.getExternalStorageDirectory()+"/CarChecker";
 
     public static String logStringCache = "";
 
-
-
+    public static void checkAndCreateDir(){
+        java.io.File a=new java.io.File(DIR);
+       /***判断文件夹是否存在，不存在则创建***/
+        if (!a.exists()){
+            a.mkdir();
+        }
+    }
+    
+    public static boolean checkPdfCreated(String orderID){
+    	Log.e("", DIR + "/" + orderID + ".pdf");
+        java.io.File a=new java.io.File(DIR + "/" + orderID + ".pdf");
+       /***判断文件夹是否存在，不存在则创建***/
+        if (!a.exists()){
+            return false;
+        }
+        return true;
+    }
 
 
     // 获取ApiKey

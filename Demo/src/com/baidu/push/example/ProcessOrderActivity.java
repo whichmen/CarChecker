@@ -1,5 +1,7 @@
 package com.baidu.push.example;
 
+import java.io.File;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -10,12 +12,12 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.provider.MediaStore.MediaColumns;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -37,6 +39,7 @@ public class ProcessOrderActivity extends Activity {
 	ListView processed_order_txt = null;
 	String[] processed_order_contentStrings = null;
 	Button process_order_activity_submit_btn = null;
+	Button process_order_activity_preview_btn = null;
 	Button process_order_activity_save = null;
 
 	private boolean needSaveCurrentPage = true;
@@ -74,10 +77,8 @@ public class ProcessOrderActivity extends Activity {
 
 	}
 
-	public void createCategory(int categoryID, int startItemID,
+	public void createCategoryClass(int categoryID, int startItemID,
 			SourceDataBase sourceDataBase) {
-
-		LayoutInflater layoutInflater = LayoutInflater.from(this);
 
 		String[] demoListTitle = sourceDataBase.getDemoListTitle();
 		String[][] demolistName = sourceDataBase.getDemoListName();
@@ -89,6 +90,19 @@ public class ProcessOrderActivity extends Activity {
 		boolean[] hasEdit = sourceDataBase.getHasEdit();
 		boolean[] hasBtn = sourceDataBase.getHasBtn();
 
+		for (int i = 0; i < sourceDataBase.getLength(); i++) {
+			ci[startItemID] = new CheckItem(demoListTitle[i], demolistName[i],
+					demoDropDownListName[i], demodropDownListScore[i],
+					hasRepair[i], hasEdit[i], hasBtn[i]);
+			ci[startItemID].setBasicInfoPtr(basicInfo);
+			startItemID++;
+		}
+
+	}
+
+	public void createCategoryView(int categoryID, int startItemID,
+			SourceDataBase sourceDataBase) {
+		LayoutInflater layoutInflater = LayoutInflater.from(this);
 		linearLayout[categoryID] = (ViewGroup) layoutInflater.inflate(
 				R.layout.basic_linear_layout, null);
 
@@ -99,16 +113,13 @@ public class ProcessOrderActivity extends Activity {
 		linearLayout[categoryID].setLayoutParams(params);
 
 		for (int i = 0; i < sourceDataBase.getLength(); i++) {
-			ci[startItemID] = new CheckItem(demoListTitle[i], demolistName[i], 
-					demoDropDownListName[i], demodropDownListScore[i],hasRepair[i],
-					hasEdit[i], hasBtn[i]);
-			ci[startItemID].setBasicInfoPtr(basicInfo);
-			linearLayout[categoryID].addView(ci[startItemID]
-					.createCheckItem(this, startItemID));
+			linearLayout[categoryID].addView(ci[startItemID].createCheckItem(
+					this, startItemID));
 			startItemID++;
 		}
 		linearLayout[categoryID].setVisibility(View.INVISIBLE);
 		mainLayout.addView(linearLayout[categoryID]);
+
 	}
 
 	@Override
@@ -124,13 +135,13 @@ public class ProcessOrderActivity extends Activity {
 		// Set the drawer toggle as the DrawerListener
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-		process_order_activity_submit_btn = (Button) findViewById(R.id.process_order_activity_submit);
+		process_order_activity_preview_btn = (Button) findViewById(R.id.process_order_activity_preview);
 
-		process_order_activity_submit_btn
-				.setOnClickListener(new View.OnClickListener() {
+		process_order_activity_preview_btn
+				.setOnClickListener(new OnClickListener() {
 
 					@Override
-					public void onClick(View v) {
+					public void onClick(View arg0) {
 
 						if (!basicInfo.hasKeyInfo()) {
 							Toast.makeText(
@@ -141,7 +152,6 @@ public class ProcessOrderActivity extends Activity {
 							return;
 						}
 
-						needSaveCurrentPage = false;
 						try {
 							if (Orders.processingBufferedOrderID == -1) {
 								if (Orders.currentOrderJsonObject == null)
@@ -149,7 +159,18 @@ public class ProcessOrderActivity extends Activity {
 								saveData(Orders.currentOrderJsonObject);
 								getScore(Orders.currentOrderJsonObject);
 
-								Orders.finishCurrentOrder();
+								try {
+									PDFUtils.createPDFByItext();
+
+								} catch (Exception e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+								String id = Orders.currentOrderJsonObject
+										.getString("订单号：");
+
+								PDFUtils.openPdf(ProcessOrderActivity.this, id);
+
 							} else {
 								saveData(Orders.bufferedOrdersJsonArray
 										.getJSONObject(Orders.processingBufferedOrderID));
@@ -160,10 +181,39 @@ public class ProcessOrderActivity extends Activity {
 								Orders.processingBufferedOrderID = -1;
 							}
 
-							Intent intent = new Intent(
-									ProcessOrderActivity.this,
-									OrdersActivity.class);
-							startActivity(intent);
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+
+					}
+				});
+
+		process_order_activity_submit_btn = (Button) findViewById(R.id.process_order_activity_submit);
+
+		process_order_activity_submit_btn
+				.setOnClickListener(new View.OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						try {
+							if (Orders.currentOrderJsonObject != null
+									&& Utils.checkPdfCreated(Orders.currentOrderJsonObject
+											.getString("订单号："))) {
+								needSaveCurrentPage = false;
+								Toast.makeText(ProcessOrderActivity.this,
+										"pdf already created",
+										Toast.LENGTH_LONG).show();
+								Orders.finishCurrentOrder();
+								Intent intent = new Intent(
+										ProcessOrderActivity.this,
+										OrdersActivity.class);
+								startActivity(intent);
+								finish();
+							} else {
+								Toast.makeText(ProcessOrderActivity.this,
+										"请先生成检测报告", Toast.LENGTH_LONG).show();
+							}
 
 						} catch (JSONException e) {
 							// TODO Auto-generated catch block
@@ -194,9 +244,9 @@ public class ProcessOrderActivity extends Activity {
 
 		// for check items
 		int index = 0;
-
+		//
 		for (int i = 1; i < SourceData_Category.length; i++) {
-			createCategory(i, index, sourceDataBase[i]);
+			createCategoryClass(i, index, sourceDataBase[i]);
 			index += sourceDataBase[i].getLength();
 		}
 
@@ -208,7 +258,8 @@ public class ProcessOrderActivity extends Activity {
 	}
 
 	@Override
-	protected void onActivityResult(final int requestCode,  int resultCode, Intent data) {
+	protected void onActivityResult(final int requestCode, int resultCode,
+			Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 
 		if (resultCode == Activity.RESULT_OK) {
@@ -220,31 +271,34 @@ public class ProcessOrderActivity extends Activity {
 			String[] projection = { MediaColumns.DATA };
 			Cursor cursor = this.getContentResolver().query(uri, projection,
 					null, null, null);
-			int column_index = cursor
-					.getColumnIndexOrThrow(MediaColumns.DATA);
+			int column_index = cursor.getColumnIndexOrThrow(MediaColumns.DATA);
 			cursor.moveToFirst();
 			path = cursor.getString(column_index);
 
-			Toast.makeText(this, " 文件存放路径： " +  "/" + basicInfo.getOrderID() + "/" + ci[requestCode].title + ".jpg", Toast.LENGTH_LONG).show();
+			Toast.makeText(
+					this,
+					" 文件存放路径： " + "/" + basicInfo.getOrderID() + "/"
+							+ ci[requestCode].title + ".jpg", Toast.LENGTH_LONG)
+					.show();
 			ProgressDialog pd = ProgressDialog.show(ProcessOrderActivity.this,
 					"正在上传图片", "上传中，请稍后……");
 			pd.setProgress(0);
 
-			FileUtils.uploadFile(path, "/" + basicInfo.getOrderID() + "/" + ci[requestCode].title + ".jpg" , pd,
-					new Callback() {
+			FileUtils.uploadFile(path, "/" + basicInfo.getOrderID() + "/"
+					+ ci[requestCode].title + ".jpg", pd, new Callback() {
 
-						@Override
-						public void onSuccess() {
-							// TODO Auto-generated method stub
-							ci[requestCode].setPictureUploaded();
-						}
+				@Override
+				public void onSuccess() {
+					// TODO Auto-generated method stub
+					ci[requestCode].setPictureUploaded();
+				}
 
-						@Override
-						public void onFail() {
-							// TODO Auto-generated method stub
+				@Override
+				public void onFail() {
+					// TODO Auto-generated method stub
 
-						}
-					});
+				}
+			});
 
 		}
 	}
@@ -346,13 +400,18 @@ public class ProcessOrderActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
+				if (linearLayout[position] == null) {
+					createCategoryView(position,
+							sourceDataBase[position].startItemID(),
+							sourceDataBase[position]);
+				}
 				// Highlight the selected item, update the title, and close the
 				// drawer
 				mDrawerList.setItemChecked(position, true);
 				setTitle(mPlanetTitles[position]);
 				mDrawerLayout.closeDrawer(mDrawerList);
-//				for (int i = 0; i < SourceData_Category.length; i++)
-//					linearLayout[i].setVisibility(View.INVISIBLE);
+				// for (int i = 0; i < SourceData_Category.length; i++)
+				// linearLayout[i].setVisibility(View.INVISIBLE);
 				mainLayout.removeAllViews();
 
 				mainLayout.addView(linearLayout[position]);

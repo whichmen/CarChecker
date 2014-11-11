@@ -6,6 +6,8 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,7 +21,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class CheckItem {
-    //check info not need init
+
+	private final int FORCE_GOOD = 0;
+	private final int FORCE_REPAIR = 1;
+	private final int USER_NO_REPAIR = 2;
+	private final int USER_SUCC_REPAIR = 3;
+	private final int USER_SAFE_REPAIR = 4;
+
+	// check info not need init
 	public String title = null;
 
 	public String[] listName = null;
@@ -32,7 +41,7 @@ public class CheckItem {
 	private int[][] repairTag = null;
 	private BasicInfo basicInfo = null;
 
-	//widget need init
+	// widget need init
 	private Spinner[] spinner = new Spinner[6];
 	private ArrayAdapter<String> adapter;
 	private TextView[] spinner_name = new TextView[6];
@@ -40,17 +49,20 @@ public class CheckItem {
 	private Button btn;
 	private TextView titleTxt;
 
-	//result info need init
+	// result info need init
 	private int[] dropDownListResult = new int[6];
-	private int repairResult = -1;
+	private int repairResult = 0;
 	private Spinner repairSpinner = null;
-	private static String[] repairSpinnerName = {"无需整备","建议整备","安全整备"};
-	
-	private boolean[] spinnerAutoVisitedTag = {false, false, false, false, false, false};
+	private static String[] repairSpinnerName = { "无需整备", "建议整备", "安全整备" };
+	private String editContent = "";
+
+	private boolean[] spinnerAutoVisitedTag = { false, false, false, false,
+			false, false };
 	private boolean repairSpinnerAutoVisitedTag = false;
-	
+
 	public CheckItem(String title, String[] listName, String[][] itemName,
-			double[][] itemScore, int[][] repairTag, boolean hasEdit, boolean hasBtn) {
+			double[][] itemScore, int[][] repairTag, boolean hasEdit,
+			boolean hasBtn) {
 
 		dropDownListName = itemName;
 		dropDownListScore = itemScore;
@@ -78,26 +90,25 @@ public class CheckItem {
 
 		titleTxt = (TextView) buttonLayout.findViewById(R.id.checkitem_title);
 		titleTxt.setText(title);
-		
-		repairSpinner = (Spinner)buttonLayout.findViewById(R.id.Spinner_repair);
-		
+
+		repairSpinner = (Spinner) buttonLayout
+				.findViewById(R.id.Spinner_repair);
+
 		adapter = new ArrayAdapter<String>(activityContext,
 				android.R.layout.simple_spinner_item, repairSpinnerName);
-		
-		
+
 		repairSpinner.setAdapter(adapter);
 		repairSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 
-			
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
-				if(repairSpinnerAutoVisitedTag == false){
+				if (repairSpinnerAutoVisitedTag == false) {
 					repairSpinnerAutoVisitedTag = true;
 					return;
 				}
 				// TODO Auto-generated method stub
-				repairResult = arg2;
+				repairResult = arg2 + 2;
 			}
 
 			@Override
@@ -141,6 +152,8 @@ public class CheckItem {
 
 			spinner[i].setVisibility(View.VISIBLE);
 
+			spinner[i].setSelection(dropDownListResult[i]);
+
 			if (listName[i].equals("")) {
 				spinner_name[i].setVisibility(View.INVISIBLE);
 				spinner[i].setVisibility(View.INVISIBLE);
@@ -153,11 +166,11 @@ public class CheckItem {
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
-				if(spinnerAutoVisitedTag[0] == false){
+				if (spinnerAutoVisitedTag[0] == false) {
 					spinnerAutoVisitedTag[0] = true;
 					return;
 				}
-				
+
 				dropDownListResult[0] = arg2;
 				setRepairSpinnerStatus(checkRepairSpinnerStatus());
 			}
@@ -175,11 +188,11 @@ public class CheckItem {
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
-				if(spinnerAutoVisitedTag[1] == false){
+				if (spinnerAutoVisitedTag[1] == false) {
 					spinnerAutoVisitedTag[1] = true;
 					return;
 				}
-				
+
 				// TODO Auto-generated method stub
 				dropDownListResult[1] = arg2;
 				setRepairSpinnerStatus(checkRepairSpinnerStatus());
@@ -198,7 +211,7 @@ public class CheckItem {
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
-				if(spinnerAutoVisitedTag[2] == false){
+				if (spinnerAutoVisitedTag[2] == false) {
 					spinnerAutoVisitedTag[2] = true;
 					return;
 				}
@@ -220,7 +233,7 @@ public class CheckItem {
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
-				if(spinnerAutoVisitedTag[3] == false){
+				if (spinnerAutoVisitedTag[3] == false) {
 					spinnerAutoVisitedTag[3] = true;
 					return;
 				}
@@ -242,7 +255,7 @@ public class CheckItem {
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
-				if(spinnerAutoVisitedTag[4] == false){
+				if (spinnerAutoVisitedTag[4] == false) {
 					spinnerAutoVisitedTag[4] = true;
 					return;
 				}
@@ -264,7 +277,7 @@ public class CheckItem {
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
-				if(spinnerAutoVisitedTag[5] == false){
+				if (spinnerAutoVisitedTag[5] == false) {
 					spinnerAutoVisitedTag[5] = true;
 					return;
 				}
@@ -281,9 +294,66 @@ public class CheckItem {
 
 		});
 
+//		setRepairSpinnerStatus(checkRepairSpinnerStatus());
+		
+		switch (repairResult) {
+		case FORCE_GOOD:
+			repairSpinner.setVisibility(View.INVISIBLE);
+			break;
+		case FORCE_REPAIR:
+			repairSpinner.setVisibility(View.VISIBLE);
+			repairSpinner.setSelection(2);
+			repairSpinner.setClickable(false);
+			break;
+		case USER_NO_REPAIR:
+			repairSpinner.setVisibility(View.VISIBLE);
+			repairSpinner.setSelection(0);
+			repairSpinner.setClickable(true);
+			break;
+		case USER_SUCC_REPAIR:
+			repairSpinner.setVisibility(View.VISIBLE);
+			repairSpinner.setSelection(1);
+			repairSpinner.setClickable(true);
+			break;
+
+		case USER_SAFE_REPAIR:
+			repairSpinner.setVisibility(View.VISIBLE);
+			repairSpinner.setSelection(2);
+			repairSpinner.setClickable(true);
+			break;
+
+		default:
+			break;
+		}
+
 		editText = (EditText) buttonLayout.findViewById(R.id.checkitem_edit);
 		if (!hasEdit)
 			editText.setVisibility(View.INVISIBLE);
+		else {
+			editText.setText(editContent);
+			editText.addTextChangedListener(new TextWatcher() {
+
+				@Override
+				public void onTextChanged(CharSequence arg0, int arg1,
+						int arg2, int arg3) {
+					// TODO Auto-generated method stub
+					editContent = String.valueOf(arg0);
+				}
+
+				@Override
+				public void beforeTextChanged(CharSequence arg0, int arg1,
+						int arg2, int arg3) {
+					// TODO Auto-generated method stub
+
+				}
+
+				@Override
+				public void afterTextChanged(Editable arg0) {
+					// TODO Auto-generated method stub
+
+				}
+			});
+		}
 
 		btn = (Button) buttonLayout.findViewById(R.id.checkitem_btn);
 		if (!hasBtn)
@@ -313,37 +383,42 @@ public class CheckItem {
 
 		return buttonLayout;
 	}
-	
-	private int checkRepairSpinnerStatus(){
-		
+
+	private int checkRepairSpinnerStatus() {
+
 		int max = 0;
-		for(int i=0; i < 6; i ++)
-		{
+		for (int i = 0; i < 6; i++) {
 			max = java.lang.Math.max(max, repairTag[i][dropDownListResult[i]]);
 		}
 		return max;
 	}
-	
-	private void setRepairSpinnerStatus(int status){
-		
+
+	private void setRepairSpinnerStatus(int status) {
+
 		switch (status) {
-		//强制安全
+		// 强制安全
 		case 0:
-			repairResult = -1;
+			repairResult = FORCE_GOOD;
 			repairSpinner.setVisibility(View.INVISIBLE);
 			repairSpinner.setClickable(false);
 			repairSpinner.setSelection(0);
 			break;
-	    //用户可以选择是否整备
+		// 用户可以选择是否整备
 		case 1:
-			repairResult = 0;
-			repairSpinner.setVisibility(View.VISIBLE);
-			repairSpinner.setSelection(0);
-			repairSpinner.setClickable(true);
-			break;
-		//强制必须整备
+			if (repairResult == USER_NO_REPAIR
+					|| repairResult == USER_SAFE_REPAIR
+					|| repairResult == USER_SUCC_REPAIR)
+				break;
+			else {
+				repairResult = USER_NO_REPAIR;
+				repairSpinner.setVisibility(View.VISIBLE);
+				repairSpinner.setSelection(0);
+				repairSpinner.setClickable(true);
+				break;
+			}
+			// 强制必须整备
 		case 2:
-			repairResult = 2;
+			repairResult = FORCE_REPAIR;
 			repairSpinner.setVisibility(View.VISIBLE);
 			repairSpinner.setSelection(2);
 			repairSpinner.setClickable(false);
@@ -373,18 +448,17 @@ public class CheckItem {
 				e.printStackTrace();
 			}
 		}
-		
+
 		try {
 			itemJs.put("repairMode", repairResult);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 
 		if (hasEdit) {
 			try {
-				itemJs.put("edit", editText.getText().toString());
+				itemJs.put("edit", editContent);
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -412,17 +486,13 @@ public class CheckItem {
 		for (int i = 0; i < 6; i++) {
 			try {
 				dropDownListResult[i] = itemJs.getInt(listName[i]);
-				spinner[i].setSelection(dropDownListResult[i]);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
 		}
-		
+
 		try {
-			setRepairSpinnerStatus(checkRepairSpinnerStatus());
-			
 			repairResult = itemJs.getInt("repairMode");
-			repairSpinner.setSelection(repairResult);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -430,7 +500,7 @@ public class CheckItem {
 
 		if (hasEdit)
 			try {
-				editText.setText(itemJs.getString("edit"));
+				editContent = itemJs.getString("edit");
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}

@@ -30,19 +30,20 @@
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical" >
+                    android:orientation="horizontal" >
 
                     <Button
-                        android:id="@+id/process_order_activity_save"
-                        android:layout_width="fill_parent"
+                        android:id="@+id/process_order_activity_preview"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="保存当前信息"
-                        android:visibility="invisible" />
+                        android:layout_weight="1"
+                        android:text="预览检测报告" />
 
                     <Button
                         android:id="@+id/process_order_activity_submit"
-                        android:layout_width="fill_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:text="提交检测结果" />
                 </LinearLayout>
             </LinearLayout>
