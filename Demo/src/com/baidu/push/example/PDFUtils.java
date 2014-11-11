@@ -2,7 +2,8 @@ package com.baidu.push.example;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.util.ArrayList;
+
+import org.json.JSONObject;
 
 import android.content.Context;
 import android.content.Intent;
@@ -30,6 +31,12 @@ public class PDFUtils {
 	public static void createPDFByItext() throws Exception {
 //		String pdfFilePath = "/sdcard/aaa5.pdf";
 		
+//		for(int i = 0; i < 140; i++)
+//		{
+//			JSONObject js = Orders.currentOrderJsonObject.getJSONObject(activity.ci[i].title);
+//			js.get
+//		
+//		}
 		String pdfFilePath = Utils.DIR + "/" + Orders.currentOrderJsonObject.getString("订单号：") + ".pdf";
 		// 第一步： Create a Document
 		Document document = new Document(PageSize.A4);

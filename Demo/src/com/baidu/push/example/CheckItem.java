@@ -442,6 +442,7 @@ public class CheckItem {
 		JSONObject itemJs = new JSONObject();
 		for (int i = 0; i < 6; i++) {
 			try {
+				if(dropDownListResult[i] != 0)
 				itemJs.put(listName[i], dropDownListResult[i]);
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
@@ -450,6 +451,7 @@ public class CheckItem {
 		}
 
 		try {
+			if(repairResult != 0)
 			itemJs.put("repairMode", repairResult);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
@@ -458,6 +460,7 @@ public class CheckItem {
 
 		if (hasEdit) {
 			try {
+				if(!editContent.trim().equals(""))
 				itemJs.put("edit", editContent);
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
