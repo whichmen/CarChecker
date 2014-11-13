@@ -50,7 +50,7 @@ public class PushDemoActivity extends Activity implements View.OnClickListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         try {
-			PDFUtils.createPDFByItext();
+//			PDFUtils.createPDFByItext(PushDemoActivity.this, ci);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

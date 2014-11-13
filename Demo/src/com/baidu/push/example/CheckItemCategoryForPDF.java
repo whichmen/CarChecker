@@ -1,6 +1,5 @@
 package com.baidu.push.example;
 
-import android.nfc.NfcAdapter.CreateNdefMessageCallback;
 
 public class CheckItemCategoryForPDF {
 	public String categoryName = null;

@@ -50,8 +50,8 @@ public class CheckItem {
 	private TextView titleTxt;
 
 	// result info need init
-	private int[] dropDownListResult = new int[6];
-	private int repairResult = 0;
+	public int[] dropDownListResult = new int[6];
+	public int repairResult = 0;
 	private Spinner repairSpinner = null;
 	private static String[] repairSpinnerName = { "无需整备", "建议整备", "安全整备" };
 	private String editContent = "";
