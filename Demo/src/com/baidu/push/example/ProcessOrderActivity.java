@@ -160,7 +160,7 @@ public class ProcessOrderActivity extends Activity {
 								getScore(Orders.currentOrderJsonObject);
 
 								try {
-									PDFUtils.createPDFByItext(ProcessOrderActivity.this, ci);
+									PDFUtils.createPDFByItext(ProcessOrderActivity.this, ci, basicInfo);
 
 								} catch (Exception e) {
 									// TODO Auto-generated catch block

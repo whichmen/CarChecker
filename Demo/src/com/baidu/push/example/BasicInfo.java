@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 public class BasicInfo {
 
-    private String basicInfo[] = new String[]{
+    public String basicInfo[] = new String[]{
             "订单号：",
             "客户姓名：",
             "时间：",
@@ -33,7 +33,7 @@ public class BasicInfo {
 
 
     private TextView title[] = new TextView[basicInfo.length];
-    private EditText content[] = new EditText[basicInfo.length];
+    public EditText content[] = new EditText[basicInfo.length];
 
     public View createBasicInfoItem(final Context activityContext) {
 
