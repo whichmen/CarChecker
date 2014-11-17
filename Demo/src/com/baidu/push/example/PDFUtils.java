@@ -913,7 +913,7 @@ public class PDFUtils {
 		
 		if(list_safe_repair.size()>0)
 			beizhu.addElement(new Paragraph(safe_repair_Builder.toString(), fontCN_black));
-			
+
 		table.addCell(beizhu);
 		table.completeRow();
 		try {
@@ -934,5 +934,9 @@ public class PDFUtils {
 		Uri uri = Uri.fromFile(file);
 		intent.setDataAndType(uri, "application/pdf");
 		context.startActivity(intent);
+	}
+	
+	public static void createScoreTable(){
+		
 	}
 }

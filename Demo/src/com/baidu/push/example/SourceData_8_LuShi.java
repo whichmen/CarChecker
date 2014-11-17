@@ -48,7 +48,7 @@ public class SourceData_8_LuShi extends SourceDataBase{
 		return startItemID;
 	}
 	
-	private static int startItemID = 132;
+	private static int startItemID = 131;
 
     //此处表示检查项目名字
     private static String[] demoListTitle = new String[]

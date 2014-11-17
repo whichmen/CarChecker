@@ -335,6 +335,7 @@ public class ProcessOrderActivity extends Activity {
 			path = cursor.getString(column_index);
 
 			copyFile(path, "/sdcard/CarChecker/" + requestCode + ".jpg");
+			basicInfo.buttons[requestCode-200].setText("已选定图片" + String.valueOf(requestCode-200 + 1));
 			return;
 		}
 
