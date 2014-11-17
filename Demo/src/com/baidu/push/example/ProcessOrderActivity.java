@@ -322,6 +322,9 @@ public class ProcessOrderActivity extends Activity {
 			Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 
+		if(!(resultCode == Activity.RESULT_OK))
+			return;
+		
 		if (requestCode >= 200) {
 			String path = null;
 
@@ -335,7 +338,7 @@ public class ProcessOrderActivity extends Activity {
 			path = cursor.getString(column_index);
 
 			copyFile(path, "/sdcard/CarChecker/" + requestCode + ".jpg");
-			basicInfo.buttons[requestCode-200].setText("已选定图片" + String.valueOf(requestCode-200 + 1));
+			basicInfo.buttons[requestCode-200].setText("已选定:" + basicInfo.buttons[requestCode-200].getText());
 			return;
 		}
 

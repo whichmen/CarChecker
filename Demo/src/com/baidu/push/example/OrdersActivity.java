@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -49,6 +51,26 @@ public class OrdersActivity extends Activity {
         custom_activity_username_txtTextView = (TextView) findViewById(R.id.custom_activity_username);
 
         processed_order_txt = (ListView) findViewById(R.id.processed_order_txt);
+        
+        processed_order_txt.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				
+				try {
+					
+					JSONObject js = Orders.processedOrdersJsonArray.getJSONObject(Orders.processedOrdersJsonArray.length() - arg2 - 1);
+					PDFUtils.openPdf(OrdersActivity.this, js.getString("订单号："));
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				// TODO Auto-generated method stub
+				
+			}
+		});
+        
         process_current_order_btn = (Button) findViewById(R.id.process_current_order_btn);
 
         process_current_order_btn.setOnClickListener(new OnClickListener() {

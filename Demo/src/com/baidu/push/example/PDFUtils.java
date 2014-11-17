@@ -16,6 +16,7 @@ import android.R.integer;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.database.CursorJoiner.Result;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -48,6 +49,9 @@ public class PDFUtils {
 	// createPDFByItext(pdfFilePath);
 	// }
 
+	public static double totalScore = 0;
+	public static int isAccdientCar = 0;
+	
 	public static void createPDFByItext(Activity activity, CheckItem[] ci,
 			BasicInfo basicInfo) throws Exception {
 		// String pdfFilePath = "/sdcard/aaa5.pdf";
@@ -82,10 +86,11 @@ public class PDFUtils {
 			// 添加Header信息
 			document.addHeader("web", "http://www.360sdn.com");
 
+			Log.e("", "111111111111111111");
 			// 添加 中文信息
 			BaseFont bfCN = BaseFont.createFont("STSongStd-Light",
 					"UniGB-UCS2-H", false);
-
+			Log.e("", "2222222222222222222");
 			// 设置字体大小
 			Font fontCN_blue = new Font(bfCN, 12, Font.NORMAL, BaseColor.BLUE);
 			Font fontCN_black = new Font(bfCN, 12, Font.NORMAL, BaseColor.BLACK);
@@ -124,6 +129,7 @@ public class PDFUtils {
 			// Table(Properties attributes);
 			// PdfPTable p = new PdfPTable(5);
 			// p.
+			Log.e("", "3333333333333333");
 			createHeader(activity, document, fontCN_blue, fontCN_black);
 
 			createBasicInfo(activity, document, fontCN_blue, fontCN_black,
@@ -152,8 +158,10 @@ public class PDFUtils {
 			repairSuggest(activity, document, fontCN_blue, fontCN_black, ci);
 			document.add(Chunk.NEWLINE);
 			document.add(Chunk.NEWLINE);
+			drawTotalScoreTable(totalScore, document, fontCN_blue, fontCN_black);
+			document.add(Chunk.NEWLINE);
 			createFooter(activity, document, fontCN_blue, fontCN_black);
-
+			Log.e("", "4444444444444444444");
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			Log.e("", ex.toString());
@@ -369,7 +377,7 @@ public class PDFUtils {
 
 	}
 
-	// 车身外观检查
+	// 车身外观检查 20分
 	public static void createCategory1(Activity activity, Document document,
 			Font fontCN_blue, Font fontCN_black,
 			CheckItemCategoryForPDF checkItemCategoryForPDF, CheckItem[] ci) {
@@ -390,7 +398,9 @@ public class PDFUtils {
 		table.addCell(new Paragraph("外观部位", fontCN_blue));
 		table.addCell(new Paragraph("缺陷描述", fontCN_blue));
 		table.completeRow();
+		int scoreReduction = 0;
 		for (int i = 0; i < checkItemCategoryForPDF.itemMapping.length / 2; i++) {
+			
 			table.addCell(String.valueOf(i + 1));
 			table.addCell(new Paragraph(
 					ci[checkItemCategoryForPDF.itemMapping[i]].title,
@@ -409,7 +419,12 @@ public class PDFUtils {
 			table.addCell(new Paragraph(getBeiZhu( ci[checkItemCategoryForPDF.itemMapping[i + checkItemCategoryForPDF.itemMapping.length / 2]]), fontCN_black));
 
 			table.completeRow();
+			
+			scoreReduction += getScoreReduction(ci[checkItemCategoryForPDF.itemMapping[i]]);
 		}
+		drawScoreTable(20, scoreReduction, document, fontCN_blue, fontCN_black);
+		
+		
 		try {
 			table.setTotalWidth(400);
 			document.add(table);
@@ -433,7 +448,7 @@ public class PDFUtils {
 		return beizhu;
 	}
 
-	// 发动机检查
+	// 发动机检查　２０分
 	public static void createCategory2(Activity activity, Document document,
 			Font fontCN_blue, Font fontCN_black,
 			CheckItemCategoryForPDF checkItemCategoryForPDF, CheckItem[] ci) {
@@ -457,6 +472,7 @@ public class PDFUtils {
 
 		PdfPCell beizhu = new PdfPCell();
 		beizhu.setColspan(5);
+		int scoreReduction = 0;
 		for (int i = 0; i < checkItemCategoryForPDF.itemMapping.length; i++) {
 			table.addCell(new Paragraph(String.valueOf(i), fontCN_black));
 			table.addCell(new Paragraph(
@@ -478,6 +494,7 @@ public class PDFUtils {
 			}
 			table.completeRow();
 
+			
 			if (ci[checkItemCategoryForPDF.itemMapping[i]].hasEdit
 					&& !ci[checkItemCategoryForPDF.itemMapping[i]].editContent
 							.equals("")) {
@@ -487,9 +504,9 @@ public class PDFUtils {
 								+ ci[checkItemCategoryForPDF.itemMapping[i]].editContent,
 						fontCN_black));
 			}
-
+			scoreReduction += getScoreReduction(ci[checkItemCategoryForPDF.itemMapping[i]]);
 		}
-
+		drawScoreTable(20, scoreReduction, document, fontCN_blue, fontCN_black);
 		table.addCell(beizhu);
 
 		table.completeRow();
@@ -556,7 +573,7 @@ public class PDFUtils {
 		}
 	}
 
-	// 驾驶舱检查
+	// 驾驶舱检查　１０分
 	public static void createCategory4(Activity activity, Document document,
 			Font fontCN_blue, Font fontCN_black,
 			CheckItemCategoryForPDF checkItemCategoryForPDF, CheckItem[] ci) {
@@ -578,7 +595,7 @@ public class PDFUtils {
 
 		PdfPCell beizhu = new PdfPCell();
 		beizhu.setColspan(4);
-
+		int scoreReduction = 0;
 		for (int i = 0; i < checkItemCategoryForPDF.itemMapping.length; i++) {
 			table.addCell(new Paragraph(String.valueOf(i), fontCN_black));
 
@@ -605,12 +622,12 @@ public class PDFUtils {
 								+ ci[checkItemCategoryForPDF.itemMapping[i]].editContent,
 						fontCN_black));
 			}
-
+			scoreReduction += getScoreReduction(ci[checkItemCategoryForPDF.itemMapping[i]]);
 		}
 
 		table.addCell(beizhu);
 		table.completeRow();
-
+		drawScoreTable(10, scoreReduction, document, fontCN_blue, fontCN_black);
 		try {
 			table.setTotalWidth(400);
 			document.add(table);
@@ -620,7 +637,7 @@ public class PDFUtils {
 		}
 	}
 
-	// 地盘检查
+	// 地盘检查　１５分
 	public static void createCategory5(Activity activity, Document document,
 			Font fontCN_blue, Font fontCN_black,
 			CheckItemCategoryForPDF checkItemCategoryForPDF, CheckItem[] ci) {
@@ -641,7 +658,7 @@ public class PDFUtils {
 
 		PdfPCell beizhu = new PdfPCell();
 		beizhu.setColspan(4);
-
+		int scoreReduction = 0;
 		for (int i = 0; i < checkItemCategoryForPDF.itemMapping.length; i++) {
 			table.addCell(new Paragraph(String.valueOf(i), fontCN_black));
 			table.addCell(new Paragraph(
@@ -666,8 +683,9 @@ public class PDFUtils {
 								+ ci[checkItemCategoryForPDF.itemMapping[i]].editContent,
 						fontCN_black));
 			}
+			scoreReduction += getScoreReduction(ci[checkItemCategoryForPDF.itemMapping[i]]);
 		}
-
+		drawScoreTable(15, scoreReduction, document, fontCN_blue, fontCN_black);
 		table.addCell(beizhu);
 		table.completeRow();
 		try {
@@ -706,6 +724,7 @@ public class PDFUtils {
 					fontCN_black));
 			
 			table.addCell(new Paragraph(getBeiZhu(ci[checkItemCategoryForPDF.itemMapping[i]]), fontCN_black));
+			isAccdident(ci[checkItemCategoryForPDF.itemMapping[i]]);
 
 			table.addCell(String.valueOf(i
 					+ checkItemCategoryForPDF.itemMapping.length / 2 + 1));
@@ -713,6 +732,7 @@ public class PDFUtils {
 					ci[checkItemCategoryForPDF.itemMapping[i
 							+ checkItemCategoryForPDF.itemMapping.length / 2]].title,
 					fontCN_black));
+			isAccdident(ci[checkItemCategoryForPDF.itemMapping[i + checkItemCategoryForPDF.itemMapping.length / 2]]);
 			
 			table.addCell(new Paragraph(getBeiZhu( ci[checkItemCategoryForPDF.itemMapping[i + checkItemCategoryForPDF.itemMapping.length / 2]]), fontCN_black));
 
@@ -727,7 +747,7 @@ public class PDFUtils {
 		}
 	}
 
-	// 启动测试
+	// 启动测试　２０分
 	public static void createCategory7(Activity activity, Document document,
 			Font fontCN_blue, Font fontCN_black,
 			CheckItemCategoryForPDF checkItemCategoryForPDF, CheckItem[] ci) {
@@ -749,7 +769,7 @@ public class PDFUtils {
 
 		PdfPCell beizhu = new PdfPCell();
 		beizhu.setColspan(4);
-
+		int scoreReduction = 0;
 		for (int i = 0; i < checkItemCategoryForPDF.itemMapping.length; i++) {
 			table.addCell(new Paragraph(String.valueOf(i), fontCN_black));
 			table.addCell(new Paragraph(
@@ -774,11 +794,12 @@ public class PDFUtils {
 								+ ci[checkItemCategoryForPDF.itemMapping[i]].editContent,
 						fontCN_black));
 			}
+			scoreReduction += getScoreReduction(ci[checkItemCategoryForPDF.itemMapping[i]]);
 		}
 
 		table.addCell(beizhu);
 		table.completeRow();
-
+		drawScoreTable(20, scoreReduction, document, fontCN_blue, fontCN_black);
 		try {
 			table.setTotalWidth(400);
 			document.add(table);
@@ -788,7 +809,7 @@ public class PDFUtils {
 		}
 	}
 
-	// 路试测试
+	// 路试测试　１５分
 	public static void createCategory8(Activity activity, Document document,
 			Font fontCN_blue, Font fontCN_black,
 			CheckItemCategoryForPDF checkItemCategoryForPDF, CheckItem[] ci) {
@@ -806,7 +827,7 @@ public class PDFUtils {
 		table.addCell(new Paragraph("是", fontCN_blue));
 		table.addCell(new Paragraph("否", fontCN_blue));
 		table.completeRow();
-
+		int scoreReduction = 0;
 		PdfPCell beizhu = new PdfPCell();
 		beizhu.setColspan(4);
 		for (int i = 0; i < checkItemCategoryForPDF.itemMapping.length; i++) {
@@ -833,10 +854,12 @@ public class PDFUtils {
 								+ ci[checkItemCategoryForPDF.itemMapping[i]].editContent,
 						fontCN_black));
 			}
+			scoreReduction += getScoreReduction(ci[checkItemCategoryForPDF.itemMapping[i]]);
 		}
 
 		table.addCell(beizhu);
 		table.completeRow();
+		drawScoreTable(15, scoreReduction, document, fontCN_blue, fontCN_black);
 		try {
 			table.setTotalWidth(400);
 			document.add(table);
@@ -936,7 +959,68 @@ public class PDFUtils {
 		context.startActivity(intent);
 	}
 	
-	public static void createScoreTable(){
+	public static double getScoreReduction(CheckItem checkItem){
+		for(int i = 0;i <6; i++){
+			if(checkItem.dropDownListResult[i] != 0){
+				return checkItem.dropDownListScore[i][checkItem.dropDownListResult[i]];
+			}
+		}
+		return 0;
 		
+	}
+	
+	public static void drawScoreTable(double total, double scoreReduction, Document document,
+			Font fontCN_blue, Font fontCN_black){
+		
+		
+		PdfPTable table = new PdfPTable(4);
+		double scoreResult = total + scoreReduction >0 ? (total + scoreReduction):0;
+		table.addCell(new Paragraph("项目评分:", fontCN_black));
+		table.addCell(new Paragraph(String.valueOf(scoreResult), fontCN_black));
+		totalScore += scoreResult;
+		table.completeRow();
+		Log.e("", "scoreResult = " + String.valueOf(scoreResult) + " scoreReduction = " + String.valueOf(scoreReduction) + " total = " + String.valueOf(total));
+		try {
+			document.add(table);
+		} catch (DocumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void drawTotalScoreTable(double total, Document document,
+			Font fontCN_blue, Font fontCN_black){
+		
+		PdfPTable table = new PdfPTable(4);
+		table.addCell(new Paragraph("总分:", fontCN_black));
+		table.addCell(new Paragraph(String.valueOf(total), fontCN_black));
+		table.addCell(new Paragraph("等级：", fontCN_black));
+		table.addCell(new Paragraph(String.valueOf(getDengji(total)), fontCN_black));
+		table.completeRow();
+		try {
+			document.add(table);
+		} catch (DocumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void isAccdident(CheckItem checkItem){
+		int result = 0;
+		for(int i = 0; i< 6; i++)
+			result += checkItem.dropDownListResult[i];
+		isAccdientCar += result;
+	}
+	
+	public static String getDengji(double score){
+		if(isAccdientCar !=0)
+			return "五级(事故车)";
+		if(score>=90)
+		return "一级";
+		else if(score >= 60)
+			return "二级";
+		else if(score >= 20)
+			return "三级";
+		else return "四级";
 	}
 }

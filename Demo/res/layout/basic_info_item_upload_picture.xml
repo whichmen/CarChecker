@@ -16,28 +16,28 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="选择图片１" />
+            android:text="左前45度" />
 
         <Button
             android:id="@+id/basic_info_upload_picture_2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="选择图片２" />
+            android:text="右后45度" />
 
         <Button
             android:id="@+id/basic_info_upload_picture_3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="选择图片３" />
+            android:text="仪表台操纵杆" />
 
         <Button
             android:id="@+id/basic_info_upload_picture_4"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="选择图片４" />
+            android:text="前排坐椅" />
     </LinearLayout>
 
     <LinearLayout
@@ -50,28 +50,28 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="选择图片５" />
+            android:text="后排座椅" />
 
         <Button
             android:id="@+id/basic_info_upload_picture_6"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="选择图片６" />
+            android:text="发动机舱" />
 
         <Button
             android:id="@+id/basic_info_upload_picture_7"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="选择图片７" />
+            android:text="登记证书" />
 
         <Button
             android:id="@+id/basic_info_upload_picture_8"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="选择图片８" />
+            android:text="行驶本" />
     </LinearLayout>
 
 </LinearLayout>
