@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" 
+        
+        >
+
+        <Button
+            android:id="@+id/basic_info_upload_picture_1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="选择图片１" />
+
+        <Button
+            android:id="@+id/basic_info_upload_picture_2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="选择图片２" />
+
+        <Button
+            android:id="@+id/basic_info_upload_picture_3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="选择图片３" />
+
+        <Button
+            android:id="@+id/basic_info_upload_picture_4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="选择图片４" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/basic_info_upload_picture_5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="选择图片５" />
+
+        <Button
+            android:id="@+id/basic_info_upload_picture_6"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="选择图片６" />
+
+        <Button
+            android:id="@+id/basic_info_upload_picture_7"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="选择图片７" />
+
+        <Button
+            android:id="@+id/basic_info_upload_picture_8"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="选择图片８" />
+    </LinearLayout>
+
+</LinearLayout>
