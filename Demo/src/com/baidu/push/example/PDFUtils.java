@@ -6,10 +6,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import org.json.JSONException;
 
+import android.R.integer;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -29,8 +32,12 @@ import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfName;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPRow;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 
 public class PDFUtils {
 	/**
@@ -142,6 +149,10 @@ public class PDFUtils {
 					checkItemCategoryForPDF[7], ci);
 			createCategory8(activity, document, fontCN_blue, fontCN_black,
 					checkItemCategoryForPDF[8], ci);
+			repairSuggest(activity, document, fontCN_blue, fontCN_black, ci);
+			document.add(Chunk.NEWLINE);
+			document.add(Chunk.NEWLINE);
+			createFooter(activity, document, fontCN_blue, fontCN_black);
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -154,6 +165,23 @@ public class PDFUtils {
 			document = null;
 		}
 
+	}
+	
+	public static void createFooter(Activity activity, Document document,
+			Font fontCN_blue, Font fontCN_black){
+		try {
+			document.add(new Paragraph("声明：", fontCN_black));
+//			document.add(newC)
+			document.add(new Paragraph("          本《DCC车辆检测报告》结果仅为检测日期当日被检测车辆的技术状况与描述，若在当日内被检测车辆或因交通事故等原因导致车辆的安全技术状况发生变化，对车辆检测结果产生明显影响时，本检测报告不作为参考依据", fontCN_black));
+			document.add(Chunk.NEWLINE);
+			document.add(Chunk.NEWLINE);
+			document.add(new Paragraph("检测员：" + Users.userNameString, fontCN_black));
+		} catch (DocumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	}
 
 	public static Image createCategoryPicture(Activity activity, int id) {
@@ -181,6 +209,32 @@ public class PDFUtils {
 		return myImg;
 	}
 
+	public static Image createCarPicture(String path) {
+		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+
+		Bitmap bitmap = BitmapFactory.decodeFile(path);
+		bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+		Image myImg = null;
+		try {
+			myImg = Image.getInstance(stream.toByteArray());
+			myImg.setAlignment(Image.MIDDLE);
+		} catch (BadElementException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (MalformedURLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		float height = myImg.getHeight() * 100 / myImg.getWidth();
+		myImg.scaleAbsoluteWidth(100);
+		myImg.scaleAbsoluteHeight(height);
+
+		return myImg;
+	}
+
 	public static void createHeader(Activity activity, Document document,
 			Font fontCN_blue, Font fontCN_black) throws MalformedURLException,
 			IOException, DocumentException, JSONException {
@@ -198,34 +252,58 @@ public class PDFUtils {
 		myImg.scaleAbsoluteHeight(height);
 		document.add(myImg);
 
-		BaseFont bfCN = BaseFont.createFont("STSongStd-Light",
-				"UniGB-UCS2-H", false);
+		BaseFont bfCN = BaseFont.createFont("STSongStd-Light", "UniGB-UCS2-H",
+				false);
 		Font font = new Font(bfCN, 36, Font.NORMAL, BaseColor.BLACK);
-		
+
 		Paragraph paragraph = new Paragraph("DCC车辆检测报告", font);
 		paragraph.setAlignment(Paragraph.ALIGN_CENTER);
 		document.add(paragraph);
 		document.add(Chunk.NEWLINE);
-		
-		SimpleDateFormat   formatter   =   new   SimpleDateFormat   ("yyyy年MM月dd日");     
-		 Date   curDate   =   new   Date(System.currentTimeMillis());//获取当前时间     
-		String   str   =   formatter.format(curDate);  
-		
+
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日");
+		Date curDate = new Date(System.currentTimeMillis());// 获取当前时间
+		String str = formatter.format(curDate);
+
 		font.setSize(20);
-	    paragraph = new Paragraph("报告编号：" + Orders.currentOrderJsonObject.getString("订单号：") + "  检测日期：" + str, font);
+		paragraph = new Paragraph("报告编号："
+				+ Orders.currentOrderJsonObject.getString("订单号：") + "  检测日期："
+				+ str, font);
 		paragraph.setAlignment(Paragraph.ALIGN_CENTER);
 		document.add(paragraph);
 		document.add(Chunk.NEWLINE);
-		
+
 		document.add(createCategoryPicture(activity, R.drawable.border));
-		
+
 		font.setSize(20);
 		font.setColor(BaseColor.BLUE);
-	    paragraph = new Paragraph("车辆照片展示", font);
+		paragraph = new Paragraph("车辆照片展示", font);
 		paragraph.setAlignment(Paragraph.ALIGN_CENTER);
 		document.add(paragraph);
 		document.add(Chunk.NEWLINE);
-		
+
+		Image[] image = new Image[8];
+		for (int i = 0; i < 6; i++) {
+			image[i] = createCarPicture("/sdcard/CarChecker/"
+					+ String.valueOf(200 + i) + ".jpg");
+		}
+
+		PdfPTable table = new PdfPTable(3);
+		table.addCell(image[0]);
+
+		table.addCell(image[1]);
+
+		table.addCell(image[2]);
+		table.completeRow();
+
+		table.addCell(image[3]);
+
+		table.addCell(image[4]);
+
+		table.addCell(image[5]);
+		table.completeRow();
+
+		document.add(table);
 
 	}
 
@@ -317,7 +395,9 @@ public class PDFUtils {
 			table.addCell(new Paragraph(
 					ci[checkItemCategoryForPDF.itemMapping[i]].title,
 					fontCN_black));
-			table.addCell(new Paragraph());
+
+			
+			table.addCell(new Paragraph(getBeiZhu(ci[checkItemCategoryForPDF.itemMapping[i]]), fontCN_black));
 
 			table.addCell(String.valueOf(i
 					+ checkItemCategoryForPDF.itemMapping.length / 2 + 1));
@@ -325,7 +405,8 @@ public class PDFUtils {
 					ci[checkItemCategoryForPDF.itemMapping[i
 							+ checkItemCategoryForPDF.itemMapping.length / 2]].title,
 					fontCN_black));
-			table.addCell(new Paragraph());
+
+			table.addCell(new Paragraph(getBeiZhu( ci[checkItemCategoryForPDF.itemMapping[i + checkItemCategoryForPDF.itemMapping.length / 2]]), fontCN_black));
 
 			table.completeRow();
 		}
@@ -336,6 +417,20 @@ public class PDFUtils {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public static String getBeiZhu(CheckItem checkItem){
+		String beizhu = "";
+		for (int j = 0; j < 6; j++)
+			if (checkItem.dropDownListResult[j] != 0) {
+				beizhu = checkItem.dropDownListName[j][checkItem.dropDownListResult[j]] + checkItem.listName[j];
+				break;
+			}
+		if(!checkItem.editContent.equals("")){
+			return beizhu + "  备注: " + checkItem.editContent;
+		}
+		
+		return beizhu;
 	}
 
 	// 发动机检查
@@ -358,6 +453,10 @@ public class PDFUtils {
 		table.addCell(new Paragraph("轻微", fontCN_blue));
 		table.addCell(new Paragraph("严重", fontCN_blue));
 		table.completeRow();
+		ArrayList<String> list = new ArrayList<String>();
+
+		PdfPCell beizhu = new PdfPCell();
+		beizhu.setColspan(5);
 		for (int i = 0; i < checkItemCategoryForPDF.itemMapping.length; i++) {
 			table.addCell(new Paragraph(String.valueOf(i), fontCN_black));
 			table.addCell(new Paragraph(
@@ -378,7 +477,23 @@ public class PDFUtils {
 				table.addCell(new Paragraph("是", fontCN_black));
 			}
 			table.completeRow();
+
+			if (ci[checkItemCategoryForPDF.itemMapping[i]].hasEdit
+					&& !ci[checkItemCategoryForPDF.itemMapping[i]].editContent
+							.equals("")) {
+				beizhu.addElement(new Paragraph(
+						ci[checkItemCategoryForPDF.itemMapping[i]].title
+								+ ": "
+								+ ci[checkItemCategoryForPDF.itemMapping[i]].editContent,
+						fontCN_black));
+			}
+
 		}
+
+		table.addCell(beizhu);
+
+		table.completeRow();
+
 		try {
 			table.setTotalWidth(400);
 			document.add(table);
@@ -410,6 +525,8 @@ public class PDFUtils {
 		table.addCell(new Paragraph("异常", fontCN_blue));
 		table.addCell(new Paragraph("备注", fontCN_blue));
 		table.completeRow();
+		
+		
 		for (int i = 0; i < checkItemCategoryForPDF.itemMapping.length; i++) {
 			table.addCell(new Paragraph(String.valueOf(i), fontCN_black));
 			table.addCell(new Paragraph());
@@ -424,8 +541,11 @@ public class PDFUtils {
 				table.addCell(new Paragraph());
 				table.addCell(new Paragraph("是", fontCN_black));
 			}
-			table.addCell(new Paragraph());
+			table.addCell(new Paragraph( ci[checkItemCategoryForPDF.itemMapping[i]].editContent, fontCN_black));
+//			table.addCell(new Paragraph(getBeiZhu(ci[checkItemCategoryForPDF.itemMapping[i]]), fontCN_black));
+//			table.addCell(new Paragraph("哈哈", fontCN_black));
 			table.completeRow();
+			
 		}
 		try {
 			table.setTotalWidth(400);
@@ -455,6 +575,10 @@ public class PDFUtils {
 		table.addCell(new Paragraph("是", fontCN_blue));
 		table.addCell(new Paragraph("否", fontCN_blue));
 		table.completeRow();
+
+		PdfPCell beizhu = new PdfPCell();
+		beizhu.setColspan(4);
+
 		for (int i = 0; i < checkItemCategoryForPDF.itemMapping.length; i++) {
 			table.addCell(new Paragraph(String.valueOf(i), fontCN_black));
 
@@ -471,7 +595,22 @@ public class PDFUtils {
 				table.addCell(new Paragraph("是", fontCN_black));
 			}
 			table.completeRow();
+
+			if (ci[checkItemCategoryForPDF.itemMapping[i]].hasEdit
+					&& !ci[checkItemCategoryForPDF.itemMapping[i]].editContent
+							.equals("")) {
+				beizhu.addElement(new Paragraph(
+						ci[checkItemCategoryForPDF.itemMapping[i]].title
+								+ ": "
+								+ ci[checkItemCategoryForPDF.itemMapping[i]].editContent,
+						fontCN_black));
+			}
+
 		}
+
+		table.addCell(beizhu);
+		table.completeRow();
+
 		try {
 			table.setTotalWidth(400);
 			document.add(table);
@@ -499,6 +638,10 @@ public class PDFUtils {
 		table.addCell(new Paragraph("是", fontCN_blue));
 		table.addCell(new Paragraph("否", fontCN_blue));
 		table.completeRow();
+
+		PdfPCell beizhu = new PdfPCell();
+		beizhu.setColspan(4);
+
 		for (int i = 0; i < checkItemCategoryForPDF.itemMapping.length; i++) {
 			table.addCell(new Paragraph(String.valueOf(i), fontCN_black));
 			table.addCell(new Paragraph(
@@ -513,7 +656,20 @@ public class PDFUtils {
 				table.addCell(new Paragraph("是", fontCN_black));
 			}
 			table.completeRow();
+
+			if (ci[checkItemCategoryForPDF.itemMapping[i]].hasEdit
+					&& !ci[checkItemCategoryForPDF.itemMapping[i]].editContent
+							.equals("")) {
+				beizhu.addElement(new Paragraph(
+						ci[checkItemCategoryForPDF.itemMapping[i]].title
+								+ ": "
+								+ ci[checkItemCategoryForPDF.itemMapping[i]].editContent,
+						fontCN_black));
+			}
 		}
+
+		table.addCell(beizhu);
+		table.completeRow();
 		try {
 			table.setTotalWidth(400);
 			document.add(table);
@@ -548,7 +704,8 @@ public class PDFUtils {
 			table.addCell(new Paragraph(
 					ci[checkItemCategoryForPDF.itemMapping[i]].title,
 					fontCN_black));
-			table.addCell(new Paragraph());
+			
+			table.addCell(new Paragraph(getBeiZhu(ci[checkItemCategoryForPDF.itemMapping[i]]), fontCN_black));
 
 			table.addCell(String.valueOf(i
 					+ checkItemCategoryForPDF.itemMapping.length / 2 + 1));
@@ -556,7 +713,8 @@ public class PDFUtils {
 					ci[checkItemCategoryForPDF.itemMapping[i
 							+ checkItemCategoryForPDF.itemMapping.length / 2]].title,
 					fontCN_black));
-			table.addCell(new Paragraph());
+			
+			table.addCell(new Paragraph(getBeiZhu( ci[checkItemCategoryForPDF.itemMapping[i + checkItemCategoryForPDF.itemMapping.length / 2]]), fontCN_black));
 
 			table.completeRow();
 		}
@@ -588,6 +746,10 @@ public class PDFUtils {
 		table.addCell(new Paragraph("是", fontCN_blue));
 		table.addCell(new Paragraph("否", fontCN_blue));
 		table.completeRow();
+
+		PdfPCell beizhu = new PdfPCell();
+		beizhu.setColspan(4);
+
 		for (int i = 0; i < checkItemCategoryForPDF.itemMapping.length; i++) {
 			table.addCell(new Paragraph(String.valueOf(i), fontCN_black));
 			table.addCell(new Paragraph(
@@ -602,7 +764,21 @@ public class PDFUtils {
 				table.addCell(new Paragraph("是", fontCN_black));
 			}
 			table.completeRow();
+
+			if (ci[checkItemCategoryForPDF.itemMapping[i]].hasEdit
+					&& !ci[checkItemCategoryForPDF.itemMapping[i]].editContent
+							.equals("")) {
+				beizhu.addElement(new Paragraph(
+						ci[checkItemCategoryForPDF.itemMapping[i]].title
+								+ ": "
+								+ ci[checkItemCategoryForPDF.itemMapping[i]].editContent,
+						fontCN_black));
+			}
 		}
+
+		table.addCell(beizhu);
+		table.completeRow();
+
 		try {
 			table.setTotalWidth(400);
 			document.add(table);
@@ -630,6 +806,9 @@ public class PDFUtils {
 		table.addCell(new Paragraph("是", fontCN_blue));
 		table.addCell(new Paragraph("否", fontCN_blue));
 		table.completeRow();
+
+		PdfPCell beizhu = new PdfPCell();
+		beizhu.setColspan(4);
 		for (int i = 0; i < checkItemCategoryForPDF.itemMapping.length; i++) {
 			table.addCell(new Paragraph(String.valueOf(i), fontCN_black));
 			table.addCell(new Paragraph(
@@ -644,7 +823,99 @@ public class PDFUtils {
 				table.addCell(new Paragraph("是", fontCN_black));
 			}
 			table.completeRow();
+
+			if (ci[checkItemCategoryForPDF.itemMapping[i]].hasEdit
+					&& !ci[checkItemCategoryForPDF.itemMapping[i]].editContent
+							.equals("")) {
+				beizhu.addElement(new Paragraph(
+						ci[checkItemCategoryForPDF.itemMapping[i]].title
+								+ ": "
+								+ ci[checkItemCategoryForPDF.itemMapping[i]].editContent,
+						fontCN_black));
+			}
 		}
+
+		table.addCell(beizhu);
+		table.completeRow();
+		try {
+			table.setTotalWidth(400);
+			document.add(table);
+		} catch (DocumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static final int FORCE_GOOD = 0;
+	public static final int FORCE_REPAIR = 1;
+	public static final int USER_NO_REPAIR = 2;
+	public static final int USER_SUCC_REPAIR = 3;
+	public static final int USER_SAFE_REPAIR = 4;
+	
+	// 车辆整备建议
+	public static void repairSuggest(Activity activity, Document document,
+			Font fontCN_blue, Font fontCN_black, CheckItem[] ci) {
+		try {
+			document.add(createCategoryPicture(activity,
+					R.drawable.zheng_bei_jian_yi));
+		} catch (DocumentException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		PdfPTable table = new PdfPTable(2);
+		table.addCell(new Paragraph("经过一系列检测，针对该车辆做出整备建议：", fontCN_black));
+
+		PdfPCell beizhu = new PdfPCell();
+
+		ArrayList< String> list_no_repair = new ArrayList<String>();
+		ArrayList< String> list_succ_repair = new ArrayList<String>();
+		ArrayList< String> list_safe_repair = new ArrayList<String>();
+		for(int i = 0; i < 140; i++){
+			switch(ci[i].repairResult){
+			case FORCE_REPAIR:
+				list_safe_repair.add(ci[i].title);
+				break;
+			case USER_NO_REPAIR:
+				list_no_repair.add(ci[i].title);
+				break;
+			case USER_SUCC_REPAIR:
+				list_succ_repair.add(ci[i].title);
+				break;
+			case USER_SAFE_REPAIR:
+				list_safe_repair.add(ci[i].title);
+				break;
+		    default:
+				break;
+			}
+			
+		}
+		
+		StringBuilder no_repair_Builder = new StringBuilder("无需整备：");
+		StringBuilder succ_repair_Builder = new StringBuilder("建议整备：");
+		StringBuilder safe_repair_Builder = new StringBuilder("安全整备：");
+			
+		for(int i=0;i<list_no_repair.size();i++){
+			no_repair_Builder.append( " " + list_no_repair.get(i));
+		}
+
+		for(int i=0;i<list_succ_repair.size();i++)
+			succ_repair_Builder.append( " " + list_succ_repair.get(i));
+		
+		for(int i=0;i<list_safe_repair.size();i++)
+			safe_repair_Builder.append( " " + list_safe_repair.get(i));
+
+		if(list_no_repair.size()>0)
+			beizhu.addElement(new Paragraph(no_repair_Builder.toString(), fontCN_black));
+			
+		if(list_succ_repair.size()>0)
+			beizhu.addElement(new Paragraph(succ_repair_Builder.toString(), fontCN_black));
+		
+		if(list_safe_repair.size()>0)
+			beizhu.addElement(new Paragraph(safe_repair_Builder.toString(), fontCN_black));
+			
+		table.addCell(beizhu);
+		table.completeRow();
 		try {
 			table.setTotalWidth(400);
 			document.add(table);

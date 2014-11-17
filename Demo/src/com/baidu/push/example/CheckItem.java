@@ -22,11 +22,11 @@ import android.widget.Toast;
 
 public class CheckItem {
 
-	private final int FORCE_GOOD = 0;
-	private final int FORCE_REPAIR = 1;
-	private final int USER_NO_REPAIR = 2;
-	private final int USER_SUCC_REPAIR = 3;
-	private final int USER_SAFE_REPAIR = 4;
+	public static final int FORCE_GOOD = 0;
+	public static final int FORCE_REPAIR = 1;
+	public static final int USER_NO_REPAIR = 2;
+	public static final int USER_SUCC_REPAIR = 3;
+	public static final int USER_SAFE_REPAIR = 4;
 
 	// check info not need init
 	public String title = null;
@@ -54,7 +54,7 @@ public class CheckItem {
 	public int repairResult = 0;
 	private Spinner repairSpinner = null;
 	private static String[] repairSpinnerName = { "无需整备", "建议整备", "安全整备" };
-	private String editContent = "";
+	public String editContent = "";
 
 	private boolean[] spinnerAutoVisitedTag = { false, false, false, false,
 			false, false };

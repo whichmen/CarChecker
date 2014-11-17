@@ -1,6 +1,9 @@
 package com.baidu.push.example;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -152,6 +155,18 @@ public class ProcessOrderActivity extends Activity {
 							return;
 						}
 
+						for (int i = 0; i < 8; i++) {
+							if (!fileIsExists(String.valueOf("/sdcard/CarChecker/" + String.valueOf(200 + i) + ".jpg"))) {
+								String errorString = String.valueOf("/sdcard/CarChecker/" + String.valueOf(200 + i) + ".jpg");
+								Toast.makeText(
+										ProcessOrderActivity.this
+												.getApplicationContext(),
+										"请选择车身８张照片！" + errorString, Toast.LENGTH_LONG)
+										.show();
+								return;
+							}
+						}
+
 						try {
 							if (Orders.processingBufferedOrderID == -1) {
 								if (Orders.currentOrderJsonObject == null)
@@ -160,7 +175,9 @@ public class ProcessOrderActivity extends Activity {
 								getScore(Orders.currentOrderJsonObject);
 
 								try {
-									PDFUtils.createPDFByItext(ProcessOrderActivity.this, ci, basicInfo);
+									PDFUtils.createPDFByItext(
+											ProcessOrderActivity.this, ci,
+											basicInfo);
 
 								} catch (Exception e) {
 									// TODO Auto-generated catch block
@@ -205,11 +222,40 @@ public class ProcessOrderActivity extends Activity {
 										"pdf already created",
 										Toast.LENGTH_LONG).show();
 								Orders.finishCurrentOrder();
-								Intent intent = new Intent(
-										ProcessOrderActivity.this,
-										OrdersActivity.class);
-								startActivity(intent);
-								finish();
+
+								ProgressDialog pd = ProgressDialog.show(
+										ProcessOrderActivity.this, "正在上传报告",
+										"上传中，请稍后……");
+								pd.setProgress(0);
+
+								FileUtils.uploadFile("/sdcard/CarChecker/"
+										+ basicInfo.getOrderID() + ".pdf", "/"
+										+ basicInfo.getOrderID() + "/"
+										+ basicInfo.getOrderID() + ".pdf", pd,
+										new Callback() {
+
+											@Override
+											public void onSuccess() {
+												// TODO Auto-generated method
+												// stub
+												// ci[requestCode].setPictureUploaded();
+
+												Intent intent = new Intent(
+														ProcessOrderActivity.this,
+														OrdersActivity.class);
+												startActivity(intent);
+												finish();
+
+											}
+
+											@Override
+											public void onFail() {
+												// TODO Auto-generated method
+												// stub
+
+											}
+										});
+
 							} else {
 								Toast.makeText(ProcessOrderActivity.this,
 										"请先生成检测报告", Toast.LENGTH_LONG).show();
@@ -252,6 +298,20 @@ public class ProcessOrderActivity extends Activity {
 
 	}
 
+	public boolean fileIsExists(String path) {
+		try {
+			File f = new File(path);
+			if (!f.exists()) {
+				return false;
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			return false;
+		}
+		return true;
+	}
+
 	public void setPhotoOnClickListener(final CheckItem item,
 			final Context activityContext) {
 
@@ -261,6 +321,22 @@ public class ProcessOrderActivity extends Activity {
 	protected void onActivityResult(final int requestCode, int resultCode,
 			Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
+
+		if (requestCode >= 200) {
+			String path = null;
+
+			Uri uri = data.getData();
+
+			String[] projection = { MediaColumns.DATA };
+			Cursor cursor = this.getContentResolver().query(uri, projection,
+					null, null, null);
+			int column_index = cursor.getColumnIndexOrThrow(MediaColumns.DATA);
+			cursor.moveToFirst();
+			path = cursor.getString(column_index);
+
+			copyFile(path, "/sdcard/CarChecker/" + requestCode + ".jpg");
+			return;
+		}
 
 		if (resultCode == Activity.RESULT_OK) {
 
@@ -418,5 +494,30 @@ public class ProcessOrderActivity extends Activity {
 				linearLayout[position].setVisibility(View.VISIBLE);
 			}
 		});
+	}
+
+	public void copyFile(String oldPath, String newPath) {
+		try {
+			int bytesum = 0;
+			int byteread = 0;
+			File oldfile = new File(oldPath);
+			if (oldfile.exists()) { // 文件存在时
+				InputStream inStream = new FileInputStream(oldPath); // 读入原文件
+				FileOutputStream fs = new FileOutputStream(newPath);
+				byte[] buffer = new byte[1444];
+				int length;
+				while ((byteread = inStream.read(buffer)) != -1) {
+					bytesum += byteread; // 字节数 文件大小
+					System.out.println(bytesum);
+					fs.write(buffer, 0, byteread);
+				}
+				inStream.close();
+			}
+		} catch (Exception e) {
+			System.out.println("复制单个文件操作出错");
+			e.printStackTrace();
+
+		}
+
 	}
 }
