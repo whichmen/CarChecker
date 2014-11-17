@@ -77,14 +77,14 @@ public class PDFUtils {
 			document.open();
 
 			// 添加Meta信息
-			document.addTitle("iText生成PDF入门之Hello World");
-			document.addAuthor("360sdn");
-			document.addCreator("360sdn.com");
-			document.addSubject("itext");
+			document.addTitle("检车无忧");
+			document.addAuthor("检车无忧");
+			document.addCreator("检车无忧");
+			document.addSubject("检车无忧");
 			document.addCreationDate();
-			document.addKeywords("开源技术,企业架构,Java,SSH");
+			document.addKeywords("检车无忧");
 			// 添加Header信息
-			document.addHeader("web", "http://www.360sdn.com");
+			document.addHeader("web", "检车无忧");
 
 			Log.e("", "111111111111111111");
 			// 添加 中文信息
