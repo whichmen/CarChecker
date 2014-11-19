@@ -1,18 +1,30 @@
 package com.baidu.push.example;
 
+import java.util.Calendar;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.DatePicker.OnDateChangedListener;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
+import android.widget.TimePicker.OnTimeChangedListener;
 
 public class BasicInfo {
 
@@ -24,15 +36,57 @@ public class BasicInfo {
 	public EditText content[] = new EditText[basicInfo.length];
 	public Button[] buttons = new Button[8];
 
+	private int mYear = 0;
+	private int mMonth = 0;
+	private int mDay = 0;
+	Context activityContext;
+
+	// 日期选择对话框的 DateSet 事件监听器
+	private DatePickerDialog.OnDateSetListener datalistener_check = new DatePickerDialog.OnDateSetListener() { //
+		@Override
+		public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
+			content[2].setText(arg1 + "-" + String.valueOf(arg2+1) + "-" + arg3);
+			
+			Calendar calendar = Calendar.getInstance();
+			new TimePickerDialog(activityContext, timelistener_check, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true).show();
+		
+		}
+	};
+	
+	// 日期选择对话框的 DateSet 事件监听器
+	private DatePickerDialog.OnDateSetListener datalistener_dengji = new DatePickerDialog.OnDateSetListener() { //
+		@Override
+		public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
+			content[12].setText(arg1 + "-" + String.valueOf(arg2+1)  + "-" + arg3);
+		}
+	};
+
+	// 日期选择对话框的 DateSet 事件监听器
+	private TimePickerDialog.OnTimeSetListener timelistener_check = new TimePickerDialog.OnTimeSetListener() {
+		
+		@Override
+		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+			// TODO Auto-generated method stub
+			content[2].setText(content[2].getText().toString() + " " + hourOfDay + ":" + minute);
+		}
+	};
+
 	public View createBasicInfoItem(final Context activityContext) {
+		this.activityContext = activityContext;
 
 		LayoutInflater layoutInflater = LayoutInflater.from(activityContext);
 		ViewGroup Layout = (ViewGroup) layoutInflater.inflate(
 				R.layout.basic_linear_layout, null);
 
 		for (int i = 0; i < basicInfo.length; i++) {
-			View layout_item = layoutInflater.inflate(R.layout.basic_info_item,
+			View layout_item  = null;
+			if(i == 2 || i == 12){
+		    	layout_item = layoutInflater.inflate(R.layout.basic_info_item_unedit,
 					null);
+			} else {
+			    layout_item = layoutInflater.inflate(R.layout.basic_info_item,
+						null);
+			}
 			title[i] = (TextView) layout_item
 					.findViewById(R.id.basic_info_title);
 			title[i].setText(basicInfo[i]);
@@ -40,6 +94,39 @@ public class BasicInfo {
 					.findViewById(R.id.basic_info_content);
 			Layout.addView(layout_item);
 		}
+
+		content[2].setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Calendar calendar = Calendar.getInstance();
+				new DatePickerDialog(activityContext,
+						datalistener_check ,
+						calendar.get(Calendar. YEAR ),
+						calendar.get(Calendar. MONTH ),
+						calendar.get(Calendar. DAY_OF_MONTH )
+						).show();
+				
+			}
+		});
+		
+		
+		content[12].setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Calendar calendar = Calendar.getInstance();
+				new DatePickerDialog(activityContext,
+						datalistener_dengji ,
+						calendar.get(Calendar. YEAR ),
+						calendar.get(Calendar. MONTH ),
+						calendar.get(Calendar. DAY_OF_MONTH )
+						).show();
+				
+			}
+		});
+		
+
 
 		ViewGroup buttonLayout = (ViewGroup) layoutInflater.inflate(
 				R.layout.basic_info_item_upload_picture, null);
