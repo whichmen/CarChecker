@@ -287,14 +287,13 @@ public class PDFUtils {
 		document.add(paragraph);
 		document.add(Chunk.NEWLINE);
 
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日");
-		Date curDate = new Date(System.currentTimeMillis());// 获取当前时间
-		String str = formatter.format(curDate);
+//		SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日");
+//		Date curDate = new Date(System.currentTimeMillis());// 获取当前时间
+//		String str = formatter.format(curDate);
 
 		font.setSize(20);
 		paragraph = new Paragraph("报告编号："
-				+ Orders.currentOrderJsonObject.getString("订单号：") + "  检测日期："
-				+ str, font);
+				+ Orders.currentOrderJsonObject.getString("订单号："), font);
 		paragraph.setAlignment(Paragraph.ALIGN_CENTER);
 		document.add(paragraph);
 		document.add(Chunk.NEWLINE);
