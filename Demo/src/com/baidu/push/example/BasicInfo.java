@@ -12,6 +12,7 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -40,11 +41,19 @@ public class BasicInfo {
 	private int mMonth = 0;
 	private int mDay = 0;
 	Context activityContext;
+	
+	private boolean startDataPickerCheckTime = false;
+	private boolean startDataPickerDengjiTime = false;
 
 	// 日期选择对话框的 DateSet 事件监听器
 	private DatePickerDialog.OnDateSetListener datalistener_check = new DatePickerDialog.OnDateSetListener() { //
 		@Override
 		public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
+			if(startDataPickerCheckTime == false)
+				return;
+			else {
+				startDataPickerCheckTime = false;
+			}
 			content[2].setText(arg1 + "-" + String.valueOf(arg2+1) + "-" + arg3);
 			
 			Calendar calendar = Calendar.getInstance();
@@ -66,8 +75,10 @@ public class BasicInfo {
 		
 		@Override
 		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-			// TODO Auto-generated method stub
-			content[2].setText(content[2].getText().toString() + " " + hourOfDay + ":" + minute);
+			if(content[2].getText().toString().endsWith(" "))
+				return;
+			
+			content[2].setText(content[2].getText().toString() + " " + hourOfDay + ":" + minute + " ");
 		}
 	};
 
@@ -99,6 +110,8 @@ public class BasicInfo {
 			
 			@Override
 			public void onClick(View v) {
+				startDataPickerCheckTime = true;
+				Log.e("", "content[2].setOnClickListener");
 				Calendar calendar = Calendar.getInstance();
 				new DatePickerDialog(activityContext,
 						datalistener_check ,
