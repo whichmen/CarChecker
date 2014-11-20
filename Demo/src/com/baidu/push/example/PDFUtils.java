@@ -388,7 +388,7 @@ public class PDFUtils {
 		table.addCell(cell);
 		table.completeRow();
 		for (int i = 0; i < checkItemCategoryForPDF.itemMapping.length; i++) {
-			table.addCell(new Paragraph(String.valueOf(i) + "   "
+			table.addCell(new Paragraph(String.valueOf(i + 1) + "   "
 					+ ci[checkItemCategoryForPDF.itemMapping[i]].title,
 					fontCN_black));
 			if (ci[checkItemCategoryForPDF.itemMapping[i]].repairResult == 0){
@@ -553,7 +553,7 @@ public class PDFUtils {
 		beizhu.setColspan(4);
 		int scoreReduction = 0;
 		for (int i = 0; i < checkItemCategoryForPDF.itemMapping.length; i++) {
-			table.addCell(createCenterCell(String.valueOf(i), fontCN_black));
+			table.addCell(createCenterCell(String.valueOf(i + 1), fontCN_black));
 			table.addCell(new Paragraph(
 					ci[checkItemCategoryForPDF.itemMapping[i]].title,
 					fontCN_black));
@@ -630,7 +630,7 @@ public class PDFUtils {
 		table.completeRow();
 
 		for (int i = 0; i < checkItemCategoryForPDF.itemMapping.length; i++) {
-			table.addCell(createCenterCell(String.valueOf(i), fontCN_black));
+			table.addCell(createCenterCell(String.valueOf(i + 1), fontCN_black));
 //			table.addCell(new Paragraph());
 			table.addCell(createCenterCell(
 					ci[checkItemCategoryForPDF.itemMapping[i]].title,
@@ -694,7 +694,7 @@ public class PDFUtils {
 		beizhu.setColspan(3);
 		int scoreReduction = 0;
 		for (int i = 0; i < checkItemCategoryForPDF.itemMapping.length; i++) {
-			table.addCell(createCenterCell(String.valueOf(i), fontCN_black));
+			table.addCell(createCenterCell(String.valueOf(i + 1), fontCN_black));
 
 			table.addCell(new Paragraph(
 					ci[checkItemCategoryForPDF.itemMapping[i]].title,
@@ -764,7 +764,7 @@ public class PDFUtils {
 		beizhu.setColspan(3);
 		int scoreReduction = 0;
 		for (int i = 0; i < checkItemCategoryForPDF.itemMapping.length; i++) {
-			table.addCell(createCenterCell(String.valueOf(i), fontCN_black));
+			table.addCell(createCenterCell(String.valueOf(i + 1), fontCN_black));
 			table.addCell(new Paragraph(
 					ci[checkItemCategoryForPDF.itemMapping[i]].title,
 					fontCN_black));
@@ -896,7 +896,7 @@ public class PDFUtils {
 		beizhu.setColspan(3);
 		int scoreReduction = 0;
 		for (int i = 0; i < checkItemCategoryForPDF.itemMapping.length; i++) {
-			table.addCell(createCenterCell(String.valueOf(i), fontCN_black));
+			table.addCell(createCenterCell(String.valueOf(i + 1), fontCN_black));
 			table.addCell(new Paragraph(
 					ci[checkItemCategoryForPDF.itemMapping[i]].title,
 					fontCN_black));
@@ -963,7 +963,7 @@ public class PDFUtils {
 		PdfPCell beizhu = new PdfPCell();
 		beizhu.setColspan(3);
 		for (int i = 0; i < checkItemCategoryForPDF.itemMapping.length; i++) {
-			table.addCell(createCenterCell(String.valueOf(i), fontCN_black));
+			table.addCell(createCenterCell(String.valueOf(i + 1), fontCN_black));
 			table.addCell(new Paragraph(
 					ci[checkItemCategoryForPDF.itemMapping[i]].title,
 					fontCN_black));
