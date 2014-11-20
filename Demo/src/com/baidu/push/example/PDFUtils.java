@@ -89,11 +89,9 @@ public class PDFUtils {
 			// 添加Header信息
 			document.addHeader("web", "检车无忧");
 
-			Log.e("", "111111111111111111");
 			// 添加 中文信息
 			BaseFont bfCN = BaseFont.createFont("STSongStd-Light",
 					"UniGB-UCS2-H", false);
-			Log.e("", "2222222222222222222");
 			// 设置字体大小
 			Font fontCN_blue = new Font(bfCN, 12, Font.NORMAL, BaseColor.BLUE);
 			Font fontCN_black = new Font(bfCN, 12, Font.NORMAL, BaseColor.BLACK);
@@ -132,7 +130,6 @@ public class PDFUtils {
 			// Table(Properties attributes);
 			// PdfPTable p = new PdfPTable(5);
 			// p.
-			Log.e("", "3333333333333333");
 			createHeader(activity, document, fontCN_blue, fontCN_black);
 
 			createBasicInfo(activity, document, fontCN_blue, fontCN_black,
@@ -396,10 +393,10 @@ public class PDFUtils {
 					fontCN_black));
 			if (ci[checkItemCategoryForPDF.itemMapping[i]].repairResult == 0){
 				table.addCell(new Paragraph(""));
-				table.addCell(createCellWithColor("否", fontCN_black, BaseColor.RED));
+				table.addCell(createCellWithColor("否", fontCN_black, BaseColor.GREEN));
 			}
 			else{
-				table.addCell(createCellWithColor("是", fontCN_black, BaseColor.GREEN));
+				table.addCell(createCellWithColor("是", fontCN_black, BaseColor.RED));
 				table.addCell(new Paragraph(""));
 			}
 			table.completeRow();
